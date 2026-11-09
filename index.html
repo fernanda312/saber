@@ -87,6 +87,7 @@ nav.desk a:hover{color:var(--orange)}
 .ccard .ph{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:2/3;background:#222}
 .ccard .ph img{width:100%;height:100%;object-fit:cover}
 .ccard .ph .mn{position:absolute;left:0;right:0;bottom:0;padding:60px 18px 16px;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);font-weight:700;font-size:22px;color:#fff}
+.ccard .ph .vchip{position:absolute;top:12px;left:12px;background:rgba(9,9,10,.78);color:#fff;font-size:12px;font-weight:600;padding:5px 11px;border-radius:20px}
 .ccard .ct{margin-top:16px}
 .ccard .ct .t{color:var(--orange);font-weight:600;font-size:15px;line-height:1.4}
 .ccard .ct .m{margin-top:6px;font-size:13px;color:var(--mut)}
@@ -168,8 +169,19 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
 .cd .acts{margin-top:24px;display:flex;gap:14px;flex-wrap:wrap}
 .lessons{margin-top:32px}
 .lessons h3{font-size:16px;font-weight:700;margin-bottom:12px}
-.lessons li{list-style:none;display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #262626;font-size:15px}
+.lessons .lmeta{font-size:13px;color:var(--mut);margin-bottom:4px}
+.lessons li{list-style:none;display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #262626;font-size:15px;align-items:center}
 .lessons li b{color:var(--orange);font-weight:700}
+.lessons .lp{color:var(--orange);font-size:13px}
+.lessons .lt{flex:1}
+.lessons li em{font-style:normal;color:var(--mut);font-size:13px;white-space:nowrap}
+.cvideo{border-radius:16px;overflow:hidden;background:#222}
+.cvideo video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.tutor{display:flex;gap:14px;align-items:center;margin-top:20px;background:var(--char);border:1px solid #2a2a2a;border-radius:12px;padding:14px 16px}
+.tutor img{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;aspect-ratio:1/1}
+.tutor .tl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);font-weight:700}
+.tutor b{display:block;font-size:16px;line-height:1.3}
+.tutor .tr{font-size:13px;color:var(--mut)}
 /* ---------- plans ---------- */
 .plans{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 @media(max-width:860px){.plans{grid-template-columns:1fr}}
@@ -351,6 +363,7 @@ header.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.55)}
     <div class="wrap">
       <div class="sec-head"><h2>Cursos actuais e próximos</h2><div class="dash"></div></div>
       <div class="course-grid" id="homeCourses"></div>
+      <div style="text-align:center;margin-top:36px"><a class="btn ghost" href="#cursos">Ver todos os cursos</a></div>
     </div>
   </section>
 
@@ -721,9 +734,13 @@ function goFaq(){location.hash='#inicio';setTimeout(()=>{const t=document.queryS
 function toggleReco(){const f=$('recoForm');f.style.display=f.style.display==='none'?'block':'none'}
 function toggleMentor(){const f=$('mentorForm');f.style.display=f.style.display==='none'?'block':'none'}
 
+/* ---------- vídeos de apresentação por curso (fixos, fora do admin) ---------- */
+var COURSE_VIDEOS={c01:'https://videos.pexels.com/video-files/7792221/7792221-hd_1920_1080_25fps.mp4',c02:'https://videos.pexels.com/video-files/9365173/9365173-hd_1920_1080_25fps.mp4',c03:'https://videos.pexels.com/video-files/8456652/8456652-hd_1920_1080_25fps.mp4',c04:'https://videos.pexels.com/video-files/8275600/8275600-hd_1920_1080_30fps.mp4',c05:'https://videos.pexels.com/video-files/6005185/6005185-hd_1920_1080_30fps.mp4',c06:'https://videos.pexels.com/video-files/8134917/8134917-hd_1920_1080_25fps.mp4'};
+
 /* ---------- render: início / cursos ---------- */
 function courseCard(c){
-  return '<a class="ccard reveal" href="#curso/'+c.id+'"><div class="ph"><img src="'+esc(c.img)+'" alt="'+esc(c.mentor)+'" loading="lazy"><span class="mn">'+esc(c.mentor)+'</span></div><div class="ct"><div class="dash" style="margin-top:0"></div><p class="t" style="margin-top:10px">'+esc(c.title)+'</p><p class="m">'+c.lessons+' aulas · '+esc(c.hours)+' · '+esc(c.level)+'</p><p class="p">'+fmt(c.price)+'</p></div></a>';
+  var chip=COURSE_VIDEOS[c.id]?'<span class="vchip">▶ Vídeo</span>':'';
+  return '<a class="ccard reveal" href="#curso/'+c.id+'"><div class="ph">'+chip+'<img src="'+esc(c.img)+'" alt="'+esc(c.mentor)+'" loading="lazy"><span class="mn">'+esc(c.mentor)+'</span></div><div class="ct"><div class="dash" style="margin-top:0"></div><p class="t" style="margin-top:10px">'+esc(c.title)+'</p><p class="m">'+c.lessons+' aulas · '+esc(c.hours)+' · '+esc(c.level)+'</p><p class="p">'+fmt(c.price)+'</p></div></a>';
 }
 function newsCard(){
   return '<div class="news-card"><h3>Não apetece procurar?</h3><p>Subscreve a newsletter e fica a par das novidades sobre pré-vendas e novos cursos.</p><input id="gridEmail" type="email" placeholder="Email"><button class="btn" onclick="subscribeGrid()">Avise-me</button><p class="msg" id="gridMsg"></p></div>';
@@ -743,7 +760,10 @@ function setFilter(c){courseFilter=c;renderCourses()}
 function renderCourse(id){
   const c=courses().find(x=>x.id===id);
   if(!c){$('courseDetail').innerHTML='<h1>Curso não encontrado.</h1><p class="sub"><a href="#cursos" style="text-decoration:underline">Ver todos os cursos →</a></p>';return}
-  $('courseDetail').innerHTML='<p style="font-size:12px;color:var(--mut)"><a href="#cursos">Cursos</a> · '+esc(c.cat)+'</p><div class="cd"><img src="'+esc(c.img)+'" alt="'+esc(c.mentor)+'"><div><h2>'+esc(c.title)+'</h2><p class="mentor">'+esc(c.mentor)+' · '+esc(c.role)+'</p><p class="meta">'+c.lessons+' aulas · '+esc(c.hours)+' · '+esc(c.level)+' · Acesso para sempre</p><p class="desc">'+esc(c.desc)+'</p><p class="price">'+fmt(c.price)+' <small>· pagamento único</small></p><div class="acts"><button class="btn" onclick="enroll(\''+c.id+'\')">Inscrever-me</button><button class="btn ghost" onclick="openChat()">Perguntar no chat</button></div><div class="lessons"><h3>O que vais aprender</h3><ul>'+c.lessonList.map((l,i)=>'<li><b>'+String(i+1).padStart(2,'0')+'</b><span>'+esc(l)+'</span></li>').join('')+'</ul></div></div></div>';
+  var per=Math.round(parseInt(c.hours)*60/c.lessons);
+  var media=COURSE_VIDEOS[c.id]?'<div class="cvideo"><video autoplay muted loop playsinline preload="metadata" poster="'+esc(c.img)+'"><source src="'+esc(COURSE_VIDEOS[c.id])+'" type="video/mp4"></video></div>':'<img src="'+esc(c.img)+'" alt="'+esc(c.mentor)+'">';
+  $('courseDetail').innerHTML='<p style="font-size:12px;color:var(--mut)"><a href="#cursos">Cursos</a> · '+esc(c.cat)+'</p><div class="cd"><div>'+media+'<div class="tutor"><img src="'+esc(c.img)+'" alt="'+esc(c.mentor)+'"><div><span class="tl">O teu tutor</span><b>'+esc(c.mentor)+'</b><span class="tr">'+esc(c.role)+'</span></div></div></div><div><h2>'+esc(c.title)+'</h2><p class="meta">'+c.lessons+' aulas · '+esc(c.hours)+' · '+esc(c.level)+' · Acesso para sempre</p><p class="desc">'+esc(c.desc)+'</p><p class="price">'+fmt(c.price)+' <small>· pagamento único</small></p><div class="acts"><button class="btn" onclick="enroll(\''+c.id+'\')">Inscrever-me</button><button class="btn ghost" onclick="openChat()">Perguntar no chat</button></div><div class="lessons"><h3>O que vais aprender</h3><p class="lmeta">'+c.lessons+' aulas em vídeo · '+esc(c.hours)+' no total · ≈ '+per+' min por aula</p><ul>'+c.lessonList.map((l,i)=>'<li><span class="lp">▶</span><b>'+String(i+1).padStart(2,'0')+'</b><span class="lt">'+esc(l)+'</span><em>≈ '+per+' min</em></li>').join('')+'</ul></div></div></div>';
+  var cv=$('courseDetail').querySelector('.cvideo video');if(cv){cv.addEventListener('error',function(){var box=cv.closest('.cvideo');if(box){var im=document.createElement('img');im.src=c.img;im.alt=c.mentor;box.replaceWith(im)}})}
 }
 function renderPricing(){
   $('planCards').innerHTML=DEFAULT_PLANS.map(p=>{const st=settings();const pr=p.key==='mensal'?st.planMonthly:p.key==='trimestral'?st.planQuarterly:st.planYearly;const price=pr||p.price;return '<div class="plan'+(p.tag?' hot':'')+'">'+(p.tag?'<span class="tag">'+esc(p.tag)+'</span>':'')+'<h3>'+esc(p.name)+'</h3><p class="pr">'+fmt(price)+' <small>'+esc(p.per)+'</small></p><ul>'+p.feats.map(f=>'<li>'+esc(f)+'</li>').join('')+'</ul><button class="btn" onclick="subscribePlan(\''+p.key+'\')">Subscrever</button></div>'}).join('');
