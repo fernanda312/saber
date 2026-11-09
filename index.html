@@ -234,6 +234,37 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
 .chat .cfoot button{background:var(--orange);color:#fff;border:0;border-radius:50%;width:44px;height:44px;font-size:20px;flex:0 0 auto}
 .chat .cfoot .att{background:var(--char);color:#fff;border:1px solid #333}
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:80;background:#222;border:1px solid #444;color:#fff;padding:12px 20px;border-radius:8px;font-size:14px;display:none;max-width:92vw;text-align:center}
+/* ---------- movimento ---------- */
+@keyframes wordIn{from{opacity:0;transform:translateY(26px) rotate(2deg)}to{opacity:1;transform:none}}
+@keyframes gradientShift{to{background-position:220% center}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes floatGlow{from{transform:translate(-40px,0) scale(1)}to{transform:translate(40px,24px) scale(1.15)}}
+.hero-txt{position:relative;overflow:hidden}
+.hero-txt::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(230,102,6,.32),transparent 65%);top:-240px;left:50%;margin-left:-320px;filter:blur(8px);animation:floatGlow 9s ease-in-out infinite alternate;pointer-events:none}
+.hero-txt::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,196,107,.16),transparent 65%);bottom:-260px;right:-80px;filter:blur(8px);animation:floatGlow 12s ease-in-out infinite alternate-reverse;pointer-events:none}
+.hero-txt h1,.hero-txt p,.hero-btns,.stats{position:relative;z-index:1}
+.hero-txt h1 .w{display:inline-block;animation:wordIn .8s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*90ms)}
+.grad-text{background:linear-gradient(90deg,#ff8a00,#e66606,#ffc46b,#ff8a00);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradientShift 5s ease infinite}
+.cursor{display:inline-block;width:2px;height:1.1em;background:var(--orange);animation:blink 1s steps(1) infinite;vertical-align:-.15em;margin-left:2px}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.marquee{background:var(--orange);overflow:hidden;padding:12px 0}
+.marquee .track{display:flex;white-space:nowrap;width:max-content;animation:marquee 30s linear infinite}
+.marquee span{font-family:var(--cond);font-weight:600;font-size:18px;letter-spacing:.12em;text-transform:uppercase;padding:0 18px;color:#fff}
+.stats{margin-top:44px;display:flex;justify-content:center;gap:56px;flex-wrap:wrap}
+.stats b{display:block;font-size:38px;font-family:var(--cond);font-weight:700;line-height:1}
+.stats span{font-size:13px;color:#bbb}
+.hero-band video{width:100%;height:100%;object-fit:cover;object-position:center}
+.why video{border-radius:16px;width:100%;aspect-ratio:16/9;object-fit:cover}
+.videoband{padding:0 0 96px}
+.videoband video{width:100%;aspect-ratio:21/9;object-fit:cover;border-radius:16px;display:block}
+@media(max-width:768px){.videoband video{aspect-ratio:16/9}}
+.btn{transition:transform .25s,box-shadow .25s,background .25s,color .25s,border-color .25s}
+.btn:not(.ghost):hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(230,102,6,.35)}
+.ccard{transition:transform .35s,box-shadow .35s}
+.ccard:hover{transform:translateY(-6px)}
+header.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.55)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
@@ -266,21 +297,28 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
 <!-- ============ INÍCIO ============ -->
 <div class="view on" id="view-inicio">
   <section class="hero">
-    <div class="hero-band"><img src="https://images.pexels.com/photos/19411793/pexels-photo-19411793.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mentores da SABER em frente a um edifício"></div>
+    <div class="hero-band"><video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="https://images.pexels.com/photos/19411793/pexels-photo-19411793.jpeg?auto=compress&cs=tinysrgb&w=1200"><source src="https://videos.pexels.com/video-files/9365160/9365160-hd_1920_1080_25fps.mp4" type="video/mp4"></video></div>
     <div class="hero-txt wrap">
       <h1>Aprende com os melhores de Moçambique</h1>
-      <p>Descobre o teu potencial por descobrir</p>
+      <p><span id="typer">Descobre o teu potencial por descobrir</span><span class="cursor"></span></p>
       <div class="hero-btns">
         <a class="btn" href="#cursos">Explorar cursos</a>
         <a class="btn ghost" href="#precos">Experimentar agora</a>
       </div>
+      <div class="stats">
+        <div><b class="grad-text"><span class="num" data-n="6">6</span></b><span>mentores</span></div>
+        <div><b class="grad-text"><span class="num" data-n="66">66</span></b><span>aulas em vídeo</span></div>
+        <div><b class="grad-text"><span class="num" data-n="3">3</span></b><span>planos de subscrição</span></div>
+      </div>
     </div>
   </section>
 
+  <div class="marquee" aria-hidden="true"><div class="track"><span>Mentoria ✦ Cursos em vídeo ✦ Aprende ao teu ritmo ✦ Mentores verificados ✦ Certificado ✦ Pagamento por M-Pesa ✦&nbsp;</span><span>Mentoria ✦ Cursos em vídeo ✦ Aprende ao teu ritmo ✦ Mentores verificados ✦ Certificado ✦ Pagamento por M-Pesa ✦&nbsp;</span></div></div>
+
   <section class="white sec">
     <div class="wrap why">
-      <img src="https://images.pexels.com/photos/8412395/pexels-photo-8412395.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mentor com auscultadores num estúdio">
-      <div>
+      <video id="whyVideo" class="reveal" autoplay muted loop playsinline preload="metadata" poster="https://images.pexels.com/photos/8412395/pexels-photo-8412395.jpeg?auto=compress&cs=tinysrgb&w=1200"><source src="https://videos.pexels.com/video-files/7491483/7491483-hd_1920_1080_30fps.mp4" type="video/mp4"></video>
+      <div class="reveal">
         <h2>Porquê escolher a SABER?</h2>
         <p class="lead">A SABER é uma plataforma de aprendizagem imersiva, feita para quem quer crescer a sério. Aprende com mentores que fazem todos os dias aquilo que ensinam.</p>
         <ul class="benefits">
@@ -298,9 +336,9 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
     <div class="wrap">
       <h2 class="aud-title">Para alunos. Para empresas. Para mentores.</h2>
       <div class="aud-grid">
-        <a class="aud" href="#cursos"><img src="https://images.pexels.com/photos/8197499/pexels-photo-8197499.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Aluno a aprender no portátil"><span class="veil"><span>Para alunos</span></span></a>
-        <a class="aud" href="#empresas"><img src="https://images.pexels.com/photos/1181370/pexels-photo-1181370.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Equipa de empresa em reunião"><span class="veil"><span>Para empresas</span></span></a>
-        <a class="aud" href="#conta" onclick="return goMentor()"><img src="https://images.pexels.com/photos/5306438/pexels-photo-5306438.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mentora a ensinar uma aluna"><span class="veil"><span>Para mentores</span></span></a>
+        <a class="aud reveal" href="#cursos"><img src="https://images.pexels.com/photos/8197499/pexels-photo-8197499.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Aluno a aprender no portátil"><span class="veil"><span>Para alunos</span></span></a>
+        <a class="aud reveal" href="#empresas"><img src="https://images.pexels.com/photos/1181370/pexels-photo-1181370.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Equipa de empresa em reunião"><span class="veil"><span>Para empresas</span></span></a>
+        <a class="aud reveal" href="#conta" onclick="return goMentor()"><img src="https://images.pexels.com/photos/5306438/pexels-photo-5306438.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mentora a ensinar uma aluna"><span class="veil"><span>Para mentores</span></span></a>
       </div>
     </div>
   </section>
@@ -314,11 +352,11 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
 
   <section class="sec" style="padding-top:0">
     <div class="wrap split">
-      <div class="team-imgs">
+      <div class="team-imgs reveal">
         <img class="a" src="https://images.pexels.com/photos/1181360/pexels-photo-1181360.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Equipa SABER a trabalhar com portáteis">
         <img class="b" src="https://images.pexels.com/photos/7490837/pexels-photo-7490837.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Duas mentoras a colaborar num projecto">
       </div>
-      <div>
+      <div class="reveal">
         <p class="eyebrow">O nosso trabalho</p>
         <h2>Conhece a equipa SABER</h2>
         <p>A SABER faz cursos de qualidade de cinema, com mentores que são referência nas suas áreas. Cada curso é preparado pela nossa equipa, com meses de trabalho, para te dar a melhor experiência de aprendizagem, um a um.</p>
@@ -327,10 +365,16 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
     </div>
   </section>
 
+  <section class="videoband">
+    <div class="wrap">
+      <video id="bandVideo" autoplay muted loop playsinline preload="metadata" poster="https://images.pexels.com/photos/1181360/pexels-photo-1181360.jpeg?auto=compress&cs=tinysrgb&w=1200"><source src="https://videos.pexels.com/video-files/9365174/9365174-hd_1920_1080_25fps.mp4" type="video/mp4"></video>
+    </div>
+  </section>
+
   <section class="reco">
     <img class="bg" src="https://images.pexels.com/photos/7864385/pexels-photo-7864385.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mentor a trabalhar num quarto escuro">
     <div class="veil"></div>
-    <div class="in wrap">
+    <div class="in wrap reveal">
       <h2>Não vês um mentor que achas perfeito para a SABER?</h2>
       <p>Diz-nos e faremos o possível para o trazer.</p>
       <button class="btn ghost" onclick="toggleReco()">Recomendar um mentor</button>
@@ -347,7 +391,7 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
 
   <section class="sec">
     <div class="wrap split">
-      <div>
+      <div class="reveal">
         <h2>SABER para empresas</h2>
         <p>Com a aprendizagem por ressonância no centro, a SABER ajuda as pessoas a ganhar novas competências, aprofundar conhecimentos e seguir as suas paixões. Junta-te a nós numa jornada de crescimento.</p>
         <ul class="benefits dark">
@@ -358,11 +402,11 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
         </ul>
         <a class="btn" href="#empresas">Saber mais</a>
       </div>
-      <img class="biz-img" src="https://images.pexels.com/photos/9301316/pexels-photo-9301316.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Profissionais em reunião de equipa">
+      <img class="biz-img reveal" src="https://images.pexels.com/photos/9301316/pexels-photo-9301316.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Profissionais em reunião de equipa">
     </div>
   </section>
 
-  <section class="sec mentor" style="padding-top:0">
+  <section class="sec mentor reveal" style="padding-top:0">
     <div class="wrap">
       <h2>És especialista na tua área e queres ser mentor da SABER?</h2>
       <p>Fala-nos de ti e entramos em contacto.</p>
@@ -379,7 +423,7 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
   </section>
 
   <section class="sec" style="padding-top:0">
-    <div class="wrap">
+    <div class="wrap reveal">
       <h2 class="faq-title">Perguntas frequentes</h2>
       <div class="faq-cols" id="faqCols"></div>
     </div>
@@ -593,7 +637,7 @@ function toggleMentor(){const f=$('mentorForm');f.style.display=f.style.display=
 
 /* ---------- render: início / cursos ---------- */
 function courseCard(c){
-  return '<a class="ccard" href="#curso/'+c.id+'"><div class="ph"><img src="'+esc(c.img)+'" alt="'+esc(c.mentor)+'" loading="lazy"><span class="mn">'+esc(c.mentor)+'</span></div><div class="ct"><div class="dash" style="margin-top:0"></div><p class="t" style="margin-top:10px">'+esc(c.title)+'</p><p class="m">'+c.lessons+' aulas · '+esc(c.hours)+' · '+esc(c.level)+'</p><p class="p">'+fmt(c.price)+'</p></div></a>';
+  return '<a class="ccard reveal" href="#curso/'+c.id+'"><div class="ph"><img src="'+esc(c.img)+'" alt="'+esc(c.mentor)+'" loading="lazy"><span class="mn">'+esc(c.mentor)+'</span></div><div class="ct"><div class="dash" style="margin-top:0"></div><p class="t" style="margin-top:10px">'+esc(c.title)+'</p><p class="m">'+c.lessons+' aulas · '+esc(c.hours)+' · '+esc(c.level)+'</p><p class="p">'+fmt(c.price)+'</p></div></a>';
 }
 function newsCard(){
   return '<div class="news-card"><h3>Não apetece procurar?</h3><p>Subscreve a newsletter e fica a par das novidades sobre pré-vendas e novos cursos.</p><input id="gridEmail" type="email" placeholder="Email"><button class="btn" onclick="subscribeGrid()">Avise-me</button><p class="msg" id="gridMsg"></p></div>';
@@ -872,6 +916,64 @@ function chatAttach(input){
 
 /* ---------- arranque ---------- */
 renderHome();renderSocials();route();
+</script>
+<script>
+/* ================= SABER — movimento ================= */
+const REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* título: palavras a entrar, uma a uma; "Moçambique" em degradê */
+(function(){
+  const h1=document.querySelector('.hero-txt h1');if(!h1)return;
+  const words=h1.textContent.trim().split(/\s+/);
+  if(REDUCED){h1.innerHTML=words.map(w=>w.toLowerCase()==='moçambique'?'<span class="grad-text">'+w+'</span>':w).join(' ');return}
+  h1.innerHTML=words.map((w,i)=>'<span class="w" style="--i:'+i+'">'+(w.toLowerCase()==='moçambique'?'<span class="grad-text">'+w+'</span>':w)+'</span>').join(' ');
+})();
+/* subtítulo: máquina de escrever, a rodar 3 frases */
+(function(){
+  const ty=document.getElementById('typer');if(!ty)return;
+  const phrases=['Descobre o teu potencial por descobrir','Aprende com quem faz todos os dias','Cursos em vídeo, ao teu ritmo'];
+  if(REDUCED){ty.textContent=phrases[0];const c=document.querySelector('.cursor');if(c)c.style.display='none';return}
+  let pi=0,ci=0,del=false;
+  function tick(){
+    const p=phrases[pi];
+    if(!del){ci++;ty.textContent=p.slice(0,ci);if(ci===p.length){del=true;setTimeout(tick,2200);return}setTimeout(tick,55)}
+    else{ci--;ty.textContent=p.slice(0,ci);if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(tick,400);return}setTimeout(tick,22)}
+  }
+  ty.textContent='';setTimeout(tick,700);
+})();
+/* secções a aparecer quando entram no ecrã */
+const io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+function observeReveals(){document.querySelectorAll('.reveal:not(.in)').forEach(function(el){io.observe(el)})}
+window.addEventListener('hashchange',function(){setTimeout(observeReveals,90)});
+/* números a contar */
+(function(){
+  const nums=document.querySelectorAll('.stats .num');
+  if(window.courses){const tot=window.courses().reduce(function(a,c){return a+(c.lessons||0)},0);const mid=document.querySelector('.stats .num[data-n="66"]');if(mid){mid.dataset.n=tot;mid.textContent=tot}}
+  function countUp(){
+    nums.forEach(function(el){
+      const t=+el.dataset.n;
+      if(REDUCED){el.textContent=t;return}
+      const st=performance.now(),d=1200;
+      const raf=window.requestAnimationFrame||function(cb){return setTimeout(function(){cb(performance.now())},16)};
+      (function f(now){const p=Math.min(1,(now-st)/d);el.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)raf(f)})(st);
+    });
+  }
+  const so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp();so.disconnect()}})},{threshold:.4});
+  const st=document.querySelector('.stats');if(st)so.observe(st);
+})();
+/* cabeçalho com sombra ao descer */
+window.addEventListener('scroll',function(){const h=document.querySelector('header');if(h)h.classList.toggle('scrolled',window.scrollY>10)},{passive:true});
+/* vídeos: se um vídeo falhar, volta a foto */
+function videoFallback(video,imgUrl){
+  if(!video)return;
+  const src=video.querySelector('source');
+  function fail(){const img=document.createElement('img');img.src=imgUrl;img.alt='';img.style.cssText='width:100%;height:100%;object-fit:cover';video.replaceWith(img)}
+  if(src)src.addEventListener('error',fail);
+  video.addEventListener('error',fail);
+}
+observeReveals();
+videoFallback(document.getElementById('heroVideo'),'https://images.pexels.com/photos/19411793/pexels-photo-19411793.jpeg?auto=compress&cs=tinysrgb&w=1200');
+videoFallback(document.getElementById('whyVideo'),'https://images.pexels.com/photos/8412395/pexels-photo-8412395.jpeg?auto=compress&cs=tinysrgb&w=1200');
+videoFallback(document.getElementById('bandVideo'),'https://images.pexels.com/photos/1181360/pexels-photo-1181360.jpeg?auto=compress&cs=tinysrgb&w=1200');
 </script>
 </body>
 </html>
