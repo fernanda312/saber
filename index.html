@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SABER — Plataforma de mentoria</title>
+<meta name="description" content="SABER — Aprende com os melhores. Cursos online e mentoria com quem faz todos os dias.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--black:#09090a;--white:#fcfcfc;--orange:#e66606;--orange-d:#c95504;--ink:#111;--mut:#9a9a9a;--mut2:#6b6b6b;--line:#e6e6e6;--soft:#f5f5f5;--char:#1e1e1e;--char2:#262626;--serif:'Playfair Display',Georgia,serif;--cond:'Oswald',Arial,sans-serif;--sans:'Inter',Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+.view{display:none}.view.on{display:block}
+.sec{padding:96px 0}
+@media(max-width:768px){.sec{padding:64px 0}}
+.serif{font-family:var(--serif);font-weight:700;line-height:1.15}
+.dash{width:40px;height:3px;background:var(--orange);margin-top:14px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+/* ---------- header ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--black);height:70px;border-bottom:1px solid #1c1c1c}
+header .wrap{height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:var(--cond);font-weight:700;font-size:30px;letter-spacing:.1em;color:var(--white);line-height:1}
+nav.desk{display:flex;align-items:center;gap:30px}
+nav.desk a{font-size:14px;font-weight:600;color:var(--white)}
+nav.desk a:hover{color:var(--orange)}
+.btn{display:inline-block;background:var(--orange);color:#fff;font-weight:700;font-size:15px;line-height:1;padding:14px 28px;border:0;border-radius:6px;text-align:center}
+.btn:hover{background:var(--orange-d)}
+.btn.sm{padding:10px 20px;font-size:14px}
+.btn.ghost{background:transparent;color:#fff;border:1px solid #fff}
+.btn.ghost:hover{border-color:var(--orange);color:var(--orange)}
+.btn.line{background:transparent;color:var(--orange);border:1px solid var(--orange)}
+.btn.line:hover{background:var(--orange);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.burger{display:none;background:none;border:0;width:44px;height:44px;position:relative}
+.burger span{position:absolute;left:10px;right:10px;height:2px;background:#fff}
+.burger span:nth-child(1){top:15px}.burger span:nth-child(2){top:21px}.burger span:nth-child(3){top:27px}
+@media(max-width:860px){nav.desk{display:none}.burger{display:block}}
+.mmenu{position:fixed;inset:0;z-index:60;background:var(--black);display:none;flex-direction:column;padding:24px 20px;overflow-y:auto}
+.mmenu.on{display:flex}
+.mmenu .top{display:flex;justify-content:space-between;align-items:center}
+.mmenu a.big{font-family:var(--serif);font-size:34px;font-weight:700;color:#fff;padding:14px 0;border-bottom:1px solid #1c1c1c}
+.mmenu .btn{margin-top:28px}
+.xbtn{background:none;border:0;color:#fff;font-size:30px;line-height:1;padding:6px}
+/* ---------- hero ---------- */
+.hero{margin-top:70px}
+.hero-band{height:420px;overflow:hidden}
+.hero-band img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+@media(max-width:768px){.hero-band{height:250px}}
+.hero-txt{text-align:center;padding:64px 20px 84px}
+.hero-txt h1{font-family:var(--cond);font-weight:700;font-size:clamp(40px,6vw,80px);line-height:1.05;text-transform:uppercase;letter-spacing:.01em}
+.hero-txt p{margin-top:18px;font-size:18px;color:#cfcfcf;font-weight:400}
+.hero-btns{margin-top:34px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+/* ---------- white section ---------- */
+.white{background:var(--white);color:var(--ink)}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media(max-width:860px){.why{grid-template-columns:1fr;gap:36px}}
+.why img{border-radius:16px;width:100%;aspect-ratio:4/5;object-fit:cover}
+.why h2{font-family:var(--serif);font-weight:700;font-size:clamp(30px,3.5vw,44px);line-height:1.15}
+.why .lead{margin-top:18px;color:#444;font-size:16px}
+.benefits{margin-top:28px;display:grid;gap:16px}
+.benefits li{list-style:none;display:flex;gap:14px;align-items:flex-start;font-size:15px;color:#222}
+.check{flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+/* ---------- audiences ---------- */
+.aud-title{text-align:center;font-family:var(--serif);font-weight:700;font-size:clamp(30px,3.5vw,44px);line-height:1.15}
+.aud-grid{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:860px){.aud-grid{grid-template-columns:1fr}}
+.aud{position:relative;display:block;border-radius:12px;overflow:hidden;aspect-ratio:4/3}
+.aud img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.aud .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,.15) 55%,transparent);display:flex;align-items:flex-end;justify-content:center;padding:22px}
+.aud .veil span{font-family:var(--serif);font-size:24px;font-weight:700;color:#fff;text-align:center}
+/* ---------- courses ---------- */
+.sec-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3vw,36px)}
+.course-grid{margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:1024px){.course-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.course-grid{grid-template-columns:1fr}}
+.ccard{display:block}
+.ccard .ph{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:2/3;background:#222}
+.ccard .ph img{width:100%;height:100%;object-fit:cover}
+.ccard .ph .mn{position:absolute;left:0;right:0;bottom:0;padding:60px 18px 16px;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);font-weight:700;font-size:22px;color:#fff}
+.ccard .ct{margin-top:16px}
+.ccard .ct .t{color:var(--orange);font-weight:600;font-size:15px;line-height:1.4}
+.ccard .ct .m{margin-top:6px;font-size:13px;color:var(--mut)}
+.ccard .ct .p{margin-top:6px;font-size:15px;font-weight:700;color:#fff}
+.news-card{border:2px solid var(--orange);border-radius:12px;padding:28px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.news-card h3{font-family:var(--serif);font-size:24px;font-weight:700}
+.news-card p{font-size:14px;color:#cfcfcf}
+.news-card input,.fin input,.fin textarea{width:100%;background:#fff;color:#111;border:1px solid var(--orange);border-radius:6px;padding:12px 14px;font-size:15px;font-family:var(--sans)}
+.news-card input:focus,.fin input:focus,.fin textarea:focus{outline:2px solid var(--orange)}
+.filters{display:flex;gap:22px;flex-wrap:wrap;margin-top:26px}
+.filters button{background:none;border:0;color:var(--mut);font-size:14px;font-weight:600;padding-bottom:3px}
+.filters button.on{color:#fff;background-image:linear-gradient(currentColor,currentColor);background-position:0 100%;background-repeat:no-repeat;background-size:100% 1px}
+/* ---------- team / business ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:36px}}
+.split h2{font-family:var(--serif);font-weight:700;font-size:clamp(30px,3.5vw,44px);line-height:1.15;margin-top:10px}
+.split p{margin-top:16px;color:#cfcfcf;font-size:16px}
+.split .btn{margin-top:28px}
+.team-imgs{position:relative;padding-bottom:70px}
+.team-imgs .a{border-radius:16px;width:78%;aspect-ratio:4/3;object-fit:cover}
+.team-imgs .b{position:absolute;right:0;bottom:0;width:52%;border-radius:16px;aspect-ratio:4/3;object-fit:cover;border:6px solid var(--black)}
+.biz-img{border-radius:16px;width:100%;aspect-ratio:4/5;object-fit:cover}
+/* ---------- recommend ---------- */
+.reco{position:relative;overflow:hidden}
+.reco img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reco .veil{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.88),rgba(0,0,0,.55) 60%,rgba(0,0,0,.35))}
+.reco .in{position:relative;text-align:center;padding:120px 20px}
+.reco h2{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3.5vw,44px);line-height:1.2;max-width:820px;margin:0 auto}
+.reco p{margin-top:16px;color:#ddd}
+.reco .btn{margin-top:30px}
+/* ---------- mentor ---------- */
+.mentor{text-align:center}
+.mentor h2{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3.5vw,42px);line-height:1.2;max-width:760px;margin:0 auto}
+.mentor p{margin-top:16px;color:#cfcfcf}
+.mentor .btn{margin-top:30px}
+/* ---------- FAQ ---------- */
+.faq-title{text-align:center;font-family:var(--serif);font-weight:700;font-size:clamp(30px,3.5vw,44px)}
+.faq-cols{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+@media(max-width:860px){.faq-cols{grid-template-columns:1fr}}
+.faq-col h3{font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:16px}
+.faq{margin-bottom:12px;background:var(--char);border-radius:8px;overflow:hidden}
+.faq button{width:100%;background:none;border:0;color:#fff;text-align:left;font-size:15px;font-weight:600;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq button .pl{font-size:22px;font-weight:400;color:var(--orange);flex:0 0 auto}
+.faq .ans{display:none;padding:0 20px 18px;font-size:14px;color:#c9c9c9}
+.faq.open .ans{display:block}
+.faq.open button .pl{transform:rotate(45deg)}
+/* ---------- footer ---------- */
+footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+@media(max-width:1024px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.fgrid{grid-template-columns:1fr}}
+.fgrid h4{font-size:14px;font-weight:700;margin-bottom:18px}
+.fgrid ul{list-style:none;display:grid;gap:10px}
+.fgrid ul a{font-size:14px;color:#a9a9a9}
+.fgrid ul a:hover{color:var(--orange)}
+.fgrid ul a.soc{color:var(--orange);font-weight:600}
+.fgrid p{font-size:14px;color:#a9a9a9}
+.fnews{display:flex;gap:0;margin-top:14px}
+.fnews input{flex:1;min-width:0;background:#fff;color:#111;border:1px solid var(--orange);border-right:0;border-radius:6px 0 0 6px;padding:12px 14px;font-size:14px;font-family:var(--sans)}
+.fnews button{background:transparent;color:var(--orange);border:1px solid var(--orange);border-radius:0 6px 6px 0;padding:12px 18px;font-weight:700;font-size:14px}
+.fnews button:hover{background:var(--orange);color:#fff}
+.fbot{margin-top:56px;padding-top:28px;border-top:1px solid #1c1c1c;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.fbot .logo{font-size:24px}
+.fbot span{font-size:13px;color:#888}
+/* ---------- page headers ---------- */
+.page{padding:64px 0 96px}
+.page h1{font-family:var(--serif);font-weight:700;font-size:clamp(32px,4vw,48px);line-height:1.15}
+.page .sub{margin-top:12px;color:#cfcfcf;max-width:640px}
+/* ---------- course detail ---------- */
+.cd{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:40px;align-items:start}
+@media(max-width:860px){.cd{grid-template-columns:1fr;gap:28px}}
+.cd img{border-radius:16px;width:100%;aspect-ratio:2/3;object-fit:cover}
+.cd h2{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3vw,40px);line-height:1.15}
+.cd .mentor{margin-top:10px;font-size:15px;color:var(--orange);font-weight:600;text-align:left}
+.cd .meta{margin-top:14px;font-size:14px;color:var(--mut)}
+.cd .desc{margin-top:18px;color:#ddd}
+.cd .price{margin-top:24px;font-size:30px;font-weight:700}
+.cd .price small{font-size:14px;color:var(--mut);font-weight:400}
+.cd .acts{margin-top:24px;display:flex;gap:14px;flex-wrap:wrap}
+.lessons{margin-top:32px}
+.lessons h3{font-size:16px;font-weight:700;margin-bottom:12px}
+.lessons li{list-style:none;display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #262626;font-size:15px}
+.lessons li b{color:var(--orange);font-weight:700}
+/* ---------- plans ---------- */
+.plans{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:860px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--char);border:1px solid #2a2a2a;border-radius:12px;padding:32px 28px;position:relative}
+.plan.hot{border-color:var(--orange)}
+.plan .tag{position:absolute;top:-13px;left:28px;background:var(--orange);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px}
+.plan h3{font-family:var(--serif);font-size:24px;font-weight:700}
+.plan .pr{margin-top:14px;font-size:36px;font-weight:700}
+.plan .pr small{font-size:14px;color:var(--mut);font-weight:400}
+.plan ul{list-style:none;margin-top:18px;display:grid;gap:10px;font-size:14px;color:#cfcfcf}
+.plan ul li::before{content:"✓ ";color:var(--orange);font-weight:700}
+.plan .btn{margin-top:26px;width:100%}
+/* ---------- forms / account / admin ---------- */
+.form{max-width:460px;margin:0 auto}
+.form.wide{max-width:640px}
+.field{margin-top:18px}
+.field label{display:block;font-size:13px;font-weight:600;color:#bbb;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;background:var(--char);color:#fff;border:1px solid #333;border-radius:6px;padding:12px 14px;font-size:15px;font-family:var(--sans)}
+.field input[type=password]{width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--orange);border-color:var(--orange)}
+.field textarea{min-height:110px;resize:vertical}
+.note{margin-top:14px;font-size:13px;color:var(--mut)}
+.msg{margin-top:16px;font-size:14px;color:#ffb37a}
+.msg.ok{color:#7dd87d}
+.center{text-align:center}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0}
+.tabs button{background:var(--char);border:1px solid #333;color:#fff;font-size:14px;font-weight:600;padding:10px 18px;border-radius:20px}
+.tabs button.on{background:var(--orange);border-color:var(--orange)}
+.cardbox{background:var(--char);border:1px solid #2a2a2a;border-radius:12px;padding:20px;margin-bottom:14px}
+.cardbox h3{font-size:17px;font-weight:700}
+.cardbox p{font-size:14px;color:#c9c9c9;margin-top:6px}
+.rowline{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.mini{background:var(--char);border:1px solid #444;color:#fff;font-size:13px;font-weight:600;padding:8px 14px;border-radius:6px}
+.mini:hover{border-color:var(--orange);color:var(--orange)}
+.mini.danger{color:#ff9a9a}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;background:#333;color:#fff}
+.pill.paid{background:#1d5c2e;color:#bff0c8}
+.pill.wait{background:#6b4a00;color:#ffd98a}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+@media(max-width:860px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--char);border-radius:12px;padding:20px}
+.kpi b{display:block;font-size:30px}
+.kpi span{font-size:13px;color:var(--mut)}
+.ord{border-bottom:1px solid #2a2a2a;padding:16px 0}
+.ord .top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
+/* ---------- chat ---------- */
+.chatfab{position:fixed;left:20px;bottom:20px;z-index:55;width:56px;height:56px;border-radius:50%;background:var(--orange);border:0;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+.chatfab svg{width:26px;height:26px;fill:#fff}
+.chat{position:fixed;inset:0;z-index:70;background:var(--black);display:none;flex-direction:column}
+.chat.on{display:flex}
+.chat header{position:static;flex:0 0 auto}
+.chat .chead{height:64px;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid #1c1c1c}
+.chat .chead .logo{font-size:22px}
+.chat .chead span{font-size:13px;color:var(--mut)}
+.chat .chead .xbtn{margin-left:auto}
+.chat .body{flex:1;overflow-y:auto;padding:20px 16px;display:flex;flex-direction:column;gap:10px;max-width:760px;width:100%;margin:0 auto}
+.bubble{max-width:78%;padding:10px 14px;border-radius:12px;font-size:15px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.bubble.me{align-self:flex-end;background:var(--orange);color:#fff}
+.bubble.shop{align-self:flex-start;background:var(--char);color:#fff}
+.bubble .tm{display:block;font-size:11px;opacity:.75;margin-top:4px;text-align:right}
+.bubble img{max-width:100%;border-radius:8px}
+.chat .cfoot{flex:0 0 auto;border-top:1px solid #1c1c1c;padding:12px 16px;display:flex;gap:10px;align-items:center;max-width:760px;width:100%;margin:0 auto}
+.chat .cfoot input{flex:1;min-width:0;background:var(--char);border:1px solid #333;color:#fff;border-radius:20px;padding:11px 16px;font-size:15px;font-family:var(--sans)}
+.chat .cfoot button{background:var(--orange);color:#fff;border:0;border-radius:50%;width:44px;height:44px;font-size:20px;flex:0 0 auto}
+.chat .cfoot .att{background:var(--char);color:#fff;border:1px solid #333}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:80;background:#222;border:1px solid #444;color:#fff;padding:12px 20px;border-radius:8px;font-size:14px;display:none;max-width:92vw;text-align:center}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#inicio" onclick="closeMenu()">SABER</a>
+    <nav class="desk">
+      <a href="#cursos">Cursos</a>
+      <a href="#precos">Preços</a>
+      <a href="#empresas">Para empresas</a>
+      <a href="#contacto">Contacto</a>
+      <a href="#conta" class="btn sm" id="accBtn">Entrar</a>
+    </nav>
+    <button class="burger" onclick="openMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mmenu" id="mmenu">
+  <div class="top"><span class="logo">SABER</span><button class="xbtn" onclick="closeMenu()">✕</button></div>
+  <a class="big" href="#inicio" onclick="closeMenu()">Início</a>
+  <a class="big" href="#cursos" onclick="closeMenu()">Cursos</a>
+  <a class="big" href="#precos" onclick="closeMenu()">Preços</a>
+  <a class="big" href="#empresas" onclick="closeMenu()">Para empresas</a>
+  <a class="big" href="#contacto" onclick="closeMenu()">Contacto</a>
+  <a class="big" href="#conta" onclick="closeMenu()">A minha conta</a>
+  <a class="btn" href="#cursos" onclick="closeMenu()">Explorar cursos</a>
+</div>
+
+<main id="app">
+<!-- ============ INÍCIO ============ -->
+<div class="view on" id="view-inicio">
+  <section class="hero">
+    <div class="hero-band"><img src="https://images.pexels.com/photos/19411793/pexels-photo-19411793.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mentores da SABER em frente a um edifício"></div>
+    <div class="hero-txt wrap">
+      <h1>Aprende com os melhores de Moçambique</h1>
+      <p>Descobre o teu potencial por descobrir</p>
+      <div class="hero-btns">
+        <a class="btn" href="#cursos">Explorar cursos</a>
+        <a class="btn ghost" href="#precos">Experimentar agora</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="white sec">
+    <div class="wrap why">
+      <img src="https://images.pexels.com/photos/8412395/pexels-photo-8412395.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mentor com auscultadores num estúdio">
+      <div>
+        <h2>Porquê escolher a SABER?</h2>
+        <p class="lead">A SABER é uma plataforma de aprendizagem imersiva, feita para quem quer crescer a sério. Aprende com mentores que fazem todos os dias aquilo que ensinam.</p>
+        <ul class="benefits">
+          <li><span class="check">✓</span><span>Vê em qualquer lugar, do computador ao telemóvel — para quando quiseres e continua onde ficaste.</span></li>
+          <li><span class="check">✓</span><span>Aulas em qualidade HD.</span></li>
+          <li><span class="check">✓</span><span>Materiais extra com a tua inscrição.</span></li>
+          <li><span class="check">✓</span><span>Legendas em português.</span></li>
+          <li><span class="check">✓</span><span>Aprende ao teu ritmo, sem pressas nem datas fixas.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="aud-title">Para alunos. Para empresas. Para mentores.</h2>
+      <div class="aud-grid">
+        <a class="aud" href="#cursos"><img src="https://images.pexels.com/photos/8197499/pexels-photo-8197499.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Aluno a aprender no portátil"><span class="veil"><span>Para alunos</span></span></a>
+        <a class="aud" href="#empresas"><img src="https://images.pexels.com/photos/1181370/pexels-photo-1181370.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Equipa de empresa em reunião"><span class="veil"><span>Para empresas</span></span></a>
+        <a class="aud" href="#conta" onclick="return goMentor()"><img src="https://images.pexels.com/photos/5306438/pexels-photo-5306438.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mentora a ensinar uma aluna"><span class="veil"><span>Para mentores</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><h2>Cursos actuais e próximos</h2><div class="dash"></div></div>
+      <div class="course-grid" id="homeCourses"></div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0">
+    <div class="wrap split">
+      <div class="team-imgs">
+        <img class="a" src="https://images.pexels.com/photos/1181360/pexels-photo-1181360.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Equipa SABER a trabalhar com portáteis">
+        <img class="b" src="https://images.pexels.com/photos/7490837/pexels-photo-7490837.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Duas mentoras a colaborar num projecto">
+      </div>
+      <div>
+        <p class="eyebrow">O nosso trabalho</p>
+        <h2>Conhece a equipa SABER</h2>
+        <p>A SABER faz cursos de qualidade de cinema, com mentores que são referência nas suas áreas. Cada curso é preparado pela nossa equipa, com meses de trabalho, para te dar a melhor experiência de aprendizagem, um a um.</p>
+        <a class="btn" href="#contacto">Saber mais</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="reco">
+    <img class="bg" src="https://images.pexels.com/photos/7864385/pexels-photo-7864385.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mentor a trabalhar num quarto escuro">
+    <div class="veil"></div>
+    <div class="in wrap">
+      <h2>Não vês um mentor que achas perfeito para a SABER?</h2>
+      <p>Diz-nos e faremos o possível para o trazer.</p>
+      <button class="btn ghost" onclick="toggleReco()">Recomendar um mentor</button>
+      <div id="recoForm" style="display:none;max-width:520px;margin:28px auto 0;text-align:left">
+        <div class="field"><label>O nome do mentor</label><input id="rcName" placeholder="Nome completo"></div>
+        <div class="field"><label>A área dele ou dela</label><input id="rcField" placeholder="Ex.: culinária, música, negócios"></div>
+        <div class="field"><label>Porque é que seria perfeito? (opcional)</label><textarea id="rcWhy" placeholder="Conta-nos em poucas palavras"></textarea></div>
+        <div class="field"><label>O teu email (opcional)</label><input id="rcEmail" type="email" placeholder="nome@email.com"></div>
+        <button class="btn" style="margin-top:20px;width:100%" onclick="sendReco()">Enviar recomendação</button>
+        <p class="msg" id="rcMsg"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap split">
+      <div>
+        <h2>SABER para empresas</h2>
+        <p>Com a aprendizagem por ressonância no centro, a SABER ajuda as pessoas a ganhar novas competências, aprofundar conhecimentos e seguir as suas paixões. Junta-te a nós numa jornada de crescimento.</p>
+        <ul class="benefits">
+          <li><span class="check">✓</span><span>Uma gama de temas para a tua equipa.</span></li>
+          <li><span class="check">✓</span><span>Aprende ao teu próprio ritmo.</span></li>
+          <li><span class="check">✓</span><span>Equipa os novos funcionários.</span></li>
+          <li><span class="check">✓</span><span>Desenvolve a liderança.</span></li>
+        </ul>
+        <a class="btn" href="#empresas">Saber mais</a>
+      </div>
+      <img class="biz-img" src="https://images.pexels.com/photos/9301316/pexels-photo-9301316.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Profissionais em reunião de equipa">
+    </div>
+  </section>
+
+  <section class="sec mentor" style="padding-top:0">
+    <div class="wrap">
+      <h2>És especialista na tua área e queres ser mentor da SABER?</h2>
+      <p>Fala-nos de ti e entramos em contacto.</p>
+      <button class="btn" onclick="toggleMentor()">Tornar-me mentor</button>
+      <div id="mentorForm" style="display:none;max-width:520px;margin:28px auto 0;text-align:left">
+        <div class="field"><label>O teu nome</label><input id="mtName" placeholder="Nome completo"></div>
+        <div class="field"><label>A tua área</label><input id="mtField" placeholder="Ex.: fotografia, contabilidade, dança"></div>
+        <div class="field"><label>O teu email</label><input id="mtEmail" type="email" placeholder="nome@email.com"></div>
+        <div class="field"><label>Conta-nos a tua experiência</label><textarea id="mtExp" placeholder="O que fazes, há quanto tempo, o que ensinarias"></textarea></div>
+        <button class="btn" style="margin-top:20px;width:100%" onclick="sendMentor()">Enviar candidatura</button>
+        <p class="msg" id="mtMsg"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="faq-title">Perguntas frequentes</h2>
+      <div class="faq-cols" id="faqCols"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ CURSOS ============ -->
+<div class="view" id="view-cursos">
+  <div class="wrap page">
+    <h1>Todos os cursos.</h1>
+    <p class="sub">Cursos em vídeo com mentores que fazem todos os dias aquilo que ensinam. Inscreve-te e começa quando quiseres.</p>
+    <div class="filters" id="courseFilters"></div>
+    <div class="course-grid" id="allCourses" style="margin-top:30px"></div>
+  </div>
+</div>
+
+<!-- ============ CURSO ============ -->
+<div class="view" id="view-curso">
+  <div class="wrap page" id="courseDetail"></div>
+</div>
+
+<!-- ============ PREÇOS ============ -->
+<div class="view" id="view-precos">
+  <div class="wrap page">
+    <h1>Preços simples.</h1>
+    <p class="sub">Compra um curso só para ti, ou subscreve e vê todos os cursos enquanto a subscrição estiver activa.</p>
+    <div class="plans" id="planCards"></div>
+    <p class="note" style="margin-top:28px">Também podes comprar cada curso sozinho, na página do curso, com acesso para sempre. O pagamento é por M-Pesa, depois da inscrição.</p>
+  </div>
+</div>
+
+<!-- ============ EMPRESAS ============ -->
+<div class="view" id="view-empresas">
+  <div class="wrap page">
+    <h1>SABER para empresas.</h1>
+    <p class="sub">Formação para equipas: escolhe os cursos, acompanha o progresso e desenvolve as pessoas da tua empresa.</p>
+    <div class="plans" id="bizPlans"></div>
+    <div class="form wide" style="margin-top:48px">
+      <h2 class="serif" style="font-size:26px">Pedir uma proposta</h2>
+      <div class="field"><label>A tua empresa</label><input id="bzName" placeholder="Nome da empresa"></div>
+      <div class="field"><label>Quantas pessoas?</label><input id="bzSize" type="number" min="1" placeholder="Ex.: 12"></div>
+      <div class="field"><label>O teu email</label><input id="bzEmail" type="email" placeholder="nome@empresa.com"></div>
+      <div class="field"><label>O que precisam de aprender?</label><textarea id="bzMsg" placeholder="Conta-nos o que a equipa precisa"></textarea></div>
+      <button class="btn" style="margin-top:20px;width:100%" onclick="sendBiz()">Enviar pedido</button>
+      <p class="msg" id="bzMsgOut"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CONTACTO ============ -->
+<div class="view" id="view-contacto">
+  <div class="wrap page">
+    <h1>Fala connosco.</h1>
+    <p class="sub">Perguntas sobre cursos, empresas ou mentoria — estamos aqui.</p>
+    <div class="rowline" style="margin-top:28px">
+      <a class="btn" href="mailto:ola@saber.co.mz">ola@saber.co.mz</a>
+      <a class="btn ghost" id="waBtn" href="https://wa.me/258840000000" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <div class="form wide" style="margin-top:44px">
+      <div class="field"><label>O teu nome</label><input id="ctName" placeholder="Nome completo"></div>
+      <div class="field"><label>O teu email</label><input id="ctEmail" type="email" placeholder="nome@email.com"></div>
+      <div class="field"><label>A tua mensagem</label><textarea id="ctText" placeholder="Escreve a tua pergunta"></textarea></div>
+      <button class="btn" style="margin-top:20px;width:100%" onclick="sendContact()">Enviar mensagem</button>
+      <p class="msg" id="ctMsg"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CONTA ============ -->
+<div class="view" id="view-conta">
+  <div class="wrap page"><div id="accountRoot"></div></div>
+</div>
+
+<!-- ============ ADMIN ============ -->
+<div class="view" id="view-admin">
+  <div class="wrap page"><div id="adminRoot"></div></div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>Explorar</h4>
+        <ul><li><a href="#cursos">Cursos</a></li><li><a href="#inicio">Mapa do site</a></li></ul>
+      </div>
+      <div>
+        <h4>Sobre a SABER</h4>
+        <ul>
+          <li><a href="#contacto">Sobre nós</a></li><li><a href="#contacto">Contacto</a></li>
+          <li><a href="#cursos">Blogue</a></li><li><a href="#contacto">Termos de uso</a></li>
+          <li><a href="#contacto">Privacidade</a></li><li><a href="#inicio" onclick="return goMentor()">Tornar-me mentor</a></li>
+          <li><a href="#empresas">SABER para empresas</a></li><li><a href="#inicio" onclick="return goFaq()">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Social</h4>
+        <ul id="socialLinks"></ul>
+      </div>
+      <div>
+        <h4>Subscrever a newsletter</h4>
+        <p>Novidades sobre cursos e mentores, uma vez por mês.</p>
+        <div class="fnews"><input id="ftEmail" type="email" placeholder="Email"><button onclick="subscribeFoot()">Subscrever</button></div>
+        <p class="msg" id="ftMsg"></p>
+      </div>
+    </div>
+    <div class="fbot"><span class="logo">SABER</span><span>© SABER 2026</span></div>
+  </div>
+</footer>
+
+<button class="chatfab" onclick="openChat()" aria-label="Chat"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.9 1.5 5.5 3.9 7.2L5 22l3.9-2.1c1 .3 2 .4 3.1.4 5.5 0 10-4.1 10-9.1S17.5 2 12 2zm-2.7 7.2h-2v5.6h2v-5.6zm5.4 0h-2v5.6h2v-5.6zm2.7 0h-2v5.6h2v-5.6z"/></svg></button>
+
+<div class="chat" id="chatBox">
+  <div class="chead"><span class="logo">SABER</span><span id="chatSub">Chat</span><button class="xbtn" onclick="closeChat()">✕</button></div>
+  <div class="body" id="chatBody"></div>
+  <div class="cfoot">
+    <label class="att mini" style="cursor:pointer">+<input type="file" id="chatFile" accept="image/*,audio/*" style="display:none" onchange="chatAttach(this)"></label>
+    <input id="chatInput" placeholder="Escreve a tua mensagem" onkeydown="if(event.key==='Enter')sendChat()">
+    <button onclick="sendChat()">➤</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ================= SABER ================= */
+const LS='saber_';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const fmt=n=>Number(n).toLocaleString('pt-MZ').replace(/,/g,'.')+' MT';
+function toast(t){const e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(toast._t);toast._t=setTimeout(()=>e.style.display='none',3200)}
+function todayStr(){const d=new Date();return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()}
+function nowHM(){const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+function uid(p){return p+'-'+Date.now().toString(36).toUpperCase()}
+async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+function load(k,d){try{const v=JSON.parse(localStorage.getItem(LS+k));return v==null?d:v}catch(e){return d}}
+function save(k,v){localStorage.setItem(LS+k,JSON.stringify(v))}
+
+/* ---------- dados ---------- */
+const IMG={
+hero:'https://images.pexels.com/photos/19411793/pexels-photo-19411793.jpeg?auto=compress&cs=tinysrgb&w=1200',
+why:'https://images.pexels.com/photos/8412395/pexels-photo-8412395.jpeg?auto=compress&cs=tinysrgb&w=1200'};
+const DEFAULT_COURSES=[
+{id:'c01',title:'Sucesso no mundo empresarial',mentor:'Amélia Cossa',role:'Empresária e fundadora',cat:'Negócios',price:4500,lessons:12,hours:'6 h',level:'Iniciante',img:'https://images.pexels.com/photos/5466267/pexels-photo-5466267.jpeg?auto=compress&cs=tinysrgb&w=1200',desc:'Aprende com quem construiu um negócio do zero: clientes, preços, vendas e crescimento, passo a passo.',lessonList:['O ponto de partida','O teu primeiro cliente','Preços que vendem','Crescer sem pressa']},
+{id:'c02',title:'Liderança pragmática',mentor:'Dário Muianga',role:'Gestor e formador',cat:'Negócios',price:3800,lessons:10,hours:'5 h',level:'Intermédio',img:'https://images.pexels.com/photos/7446948/pexels-photo-7446948.jpeg?auto=compress&cs=tinysrgb&w=1200',desc:'Liderança sem gritar: decide bem, cuida da equipa e resolve conflitos com calma.',lessonList:['Decidir com calma','A equipa primeiro','Conversas difíceis','Liderar pelo exemplo']},
+{id:'c03',title:'Desperta o teu campeão interior',mentor:'Lúcia Mabunda',role:'Atleta e treinadora',cat:'Bem-estar',price:3200,lessons:8,hours:'4 h',level:'Todos os níveis',img:'https://images.pexels.com/photos/8456008/pexels-photo-8456008.jpeg?auto=compress&cs=tinysrgb&w=1200',desc:'A força mental de uma atleta: rotinas, foco e recuperação para dares o teu melhor quando conta.',lessonList:['A mente antes do corpo','Rotinas que ficam','Quando tudo corre mal','O teu ritmo']},
+{id:'c04',title:'Marketing digital para o teu negócio',mentor:'Nélson Tembe',role:'Consultor de marketing',cat:'Negócios',price:2900,lessons:14,hours:'7 h',level:'Iniciante',img:'https://images.pexels.com/photos/9301752/pexels-photo-9301752.jpeg?auto=compress&cs=tinysrgb&w=1200',desc:'Marketing digital simples e directo: encontra clientes, vende mais e mede o que funciona.',lessonList:['O teu cliente ideal','Conteúdo que vende','Anúncios sem desperdício','Medir e melhorar']},
+{id:'c05',title:'Cozinha para empreender',mentor:'Rosa Chissano',role:'Chef e empreendedora',cat:'Criatividade',price:3500,lessons:10,hours:'5 h',level:'Iniciante',img:'https://images.pexels.com/photos/6578886/pexels-photo-6578886.jpeg?auto=compress&cs=tinysrgb&w=1200',desc:'Transforma o que cozinhas num negócio: do prato à marca, com preços e encomendas sob controlo.',lessonList:['Da cozinha à marca','O prato que vende','Preço e lucro','Encomendas sem stress']},
+{id:'c06',title:'Produção musical do zero',mentor:'Hélio Macamo',role:'Produtor musical',cat:'Criatividade',price:4200,lessons:12,hours:'6 h',level:'Iniciante',img:'https://images.pexels.com/photos/15433497/pexels-photo-15433497.jpeg?auto=compress&cs=tinysrgb&w=1200',desc:'Do primeiro som à música pronta: grava, mistura e lança as tuas músicas com o que tens em casa.',lessonList:['O teu primeiro som','Gravar em casa','Mistura limpa','Lançar a tua música']}];
+const DEFAULT_FAQS=[
+{col:'Geral',items:[
+['O que é a SABER?','A SABER é uma plataforma de mentoria e cursos online, com mentores que ensinam o que fazem todos os dias.'],
+['Como funcionam as aulas?','Cada curso tem aulas em vídeo que vês quando quiseres, do computador ou do telemóvel, e podes parar e continuar onde ficaste.'],
+['Um curso começa numa data certa?','Não. Começas quando te inscreves e avanças ao teu ritmo.'],
+['A SABER tem aplicação?','Por agora a SABER funciona no navegador, no computador e no telemóvel.']]},
+{col:'Empresas',items:[
+['O que é a SABER para empresas?','Formação para equipas: escolhe os cursos, acompanha o progresso e desenvolve as pessoas da tua empresa.'],
+['Como inscrevo a minha equipa?','Fala connosco no chat ou por email e preparamos um plano para a tua equipa.'],
+['Os cursos têm certificado?','Sim, cada curso concluído tem certificado.'],
+['Posso pedir um curso só para a minha empresa?','Sim, diz-nos o tema e preparamos uma formação à medida.']]},
+{col:'Pagamento e subscrição',items:[
+['Como pago?','Por M-Pesa, depois da inscrição. A inscrição fica como “aguarda pagamento” até confirmarmos.'],
+['O que inclui a subscrição mensal?','Todos os cursos, enquanto a subscrição estiver activa.'],
+['Posso cancelar quando quiser?','Sim, a subscrição mensal cancela-se quando quiseres, sem fidelização.'],
+['E se não gostar do curso?','Fala connosco no chat nos primeiros 7 dias e resolvemos contigo.']]}];
+const DEFAULT_PLANS=[
+{key:'mensal',name:'Mensal',price:1500,per:'/mês',tag:'',feats:['Todos os cursos','Cancela quando quiseres','Materiais extra incluídos','Certificado por curso']},
+{key:'trimestral',name:'Trimestral',price:3900,per:'/3 meses',tag:'',feats:['Todos os cursos','3 meses de acesso','Materiais extra incluídos','Certificado por curso']},
+{key:'anual',name:'Anual',price:12000,per:'/12 meses',tag:'Mais popular',feats:['Todos os cursos','12 meses de acesso','Materiais extra incluídos','Certificado por curso','Acesso a novos cursos primeiro']}];
+const BIZ_PLANS=[
+{key:'eq5',name:'Equipa pequena',price:7500,per:'/mês',tag:'',feats:['Até 5 pessoas','Todos os cursos','Acompanhamento mensal']},
+{key:'eq20',name:'Equipa',price:25000,per:'/mês',tag:'',feats:['Até 20 pessoas','Todos os cursos','Relatório de progresso','Sessão de mentoria mensal']},
+{key:'emp',name:'Empresa',price:0,per:'sob consulta',tag:'',feats:['Pessoas ilimitadas','Cursos à medida','Gestor dedicado','Formação presencial']}];
+const DEFAULT_SETTINGS={whatsapp:'258840000000',email:'ola@saber.co.mz',socials:{instagram:'https://www.instagram.com/',facebook:'https://www.facebook.com/',tiktok:'https://www.tiktok.com/',youtube:'https://www.youtube.com/',linkedin:'https://www.linkedin.com/'}};
+function settings(){return Object.assign({},DEFAULT_SETTINGS,load('settings',{}))}
+function saveSettings(s){save('settings',s)}
+function courses(){const sv=load('courses',null);if(!sv)return DEFAULT_COURSES.map(c=>({...c}));return DEFAULT_COURSES.map(d=>{const s=sv.find(x=>x.id===d.id);return s?Object.assign({},d,s):{...d}}).concat(sv.filter(x=>!DEFAULT_COURSES.find(d=>d.id===x.id)))}
+function saveCourses(cs){save('courses',cs)}
+function users(){return load('users',[])}
+function me(){const e=load('session',null);return e?users().find(u=>u.email===e):null}
+function isAdmin(){const u=me();if(!u)return false;const us=users();return us.length&&us[0].email===u.email}
+function enrollments(){return load('enroll',[])}
+function mentorApps(){return load('mentors',[])}
+function contacts(){return load('contacts',[])}
+function chatStore(){return load('chat',{})}
+function chatPush(email,msg){const c=chatStore();(c[email]=c[email]||[]).push(msg);save('chat',c)}
+function myEnrollments(){const u=me();if(!u)return[];return enrollments().filter(e=>e.email===u.email)}
+
+/* ---------- router ---------- */
+let courseFilter='Todos',admTab='resumo',chatTarget=null;
+function show(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));const el=$(id);if(el)el.classList.add('on')}
+function route(){
+  const h=(location.hash||'#inicio').replace(/^#\/?/,'');const parts=h.split('/');const page=parts[0]||'inicio';const arg=parts[1];
+  if(page==='inicio'){show('view-inicio');renderHome()}
+  else if(page==='cursos'){show('view-cursos');renderCourses()}
+  else if(page==='curso'){show('view-curso');renderCourse(arg)}
+  else if(page==='precos'){show('view-precos');renderPricing()}
+  else if(page==='empresas'){show('view-empresas');renderBiz()}
+  else if(page==='contacto'){show('view-contacto')}
+  else if(page==='conta'){show('view-conta');renderAccount()}
+  else if(page==='admin'){show('view-admin');renderAdmin()}
+  else{show('view-inicio');renderHome()}
+  updateAccBtn();window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+function updateAccBtn(){const u=me();$('accBtn').textContent=u?('Olá, '+u.name.split(' ')[0]):'Entrar'}
+function openMenu(){$('mmenu').classList.add('on')}
+function closeMenu(){$('mmenu').classList.remove('on')}
+function goMentor(){location.hash='#inicio';setTimeout(()=>{const f=$('mentorForm');if(f){f.style.display='block';f.scrollIntoView({behavior:'smooth',block:'center'})}},80);return false}
+function goFaq(){location.hash='#inicio';setTimeout(()=>{const t=document.querySelector('.faq-title');if(t)t.scrollIntoView({behavior:'smooth'})},80);return false}
+function toggleReco(){const f=$('recoForm');f.style.display=f.style.display==='none'?'block':'none'}
+function toggleMentor(){const f=$('mentorForm');f.style.display=f.style.display==='none'?'block':'none'}
+
+/* ---------- render: início / cursos ---------- */
+function courseCard(c){
+  return '<a class="ccard" href="#curso/'+c.id+'"><div class="ph"><img src="'+esc(c.img)+'" alt="'+esc(c.mentor)+'" loading="lazy"><span class="mn">'+esc(c.mentor)+'</span></div><div class="ct"><div class="dash" style="margin-top:0"></div><p class="t" style="margin-top:10px">'+esc(c.title)+'</p><p class="m">'+c.lessons+' aulas · '+esc(c.hours)+' · '+esc(c.level)+'</p><p class="p">'+fmt(c.price)+'</p></div></a>';
+}
+function newsCard(){
+  return '<div class="news-card"><h3>Não apetece procurar?</h3><p>Subscreve a newsletter e fica a par das novidades sobre pré-vendas e novos cursos.</p><input id="gridEmail" type="email" placeholder="Email"><button class="btn" onclick="subscribeGrid()">Avise-me</button><p class="msg" id="gridMsg"></p></div>';
+}
+function renderHome(){
+  $('homeCourses').innerHTML=courses().map(courseCard).join('')+newsCard();
+  $('faqCols').innerHTML=DEFAULT_FAQS.map(col=>'<div class="faq-col"><h3>'+esc(col.col)+'</h3>'+col.items.map((q,i)=>'<div class="faq"><button onclick="this.parentElement.classList.toggle(\'open\')"><span>'+esc(q[0])+'</span><span class="pl">+</span></button><div class="ans">'+esc(q[1])+'</div></div>').join('')+'</div>').join('');
+  renderSocials();
+}
+function renderCourses(){
+  const cats=['Todos','Negócios','Bem-estar','Criatividade'];
+  $('courseFilters').innerHTML=cats.map(c=>'<button class="'+(courseFilter===c?'on':'')+'" onclick="setFilter(\''+c+'\')">'+c+'</button>').join('');
+  const list=courses().filter(c=>courseFilter==='Todos'||c.cat===courseFilter);
+  $('allCourses').innerHTML=list.map(courseCard).join('')||'<p style="color:var(--mut)">Ainda não há cursos nesta categoria.</p>';
+}
+function setFilter(c){courseFilter=c;renderCourses()}
+function renderCourse(id){
+  const c=courses().find(x=>x.id===id);
+  if(!c){$('courseDetail').innerHTML='<h1>Curso não encontrado.</h1><p class="sub"><a href="#cursos" style="text-decoration:underline">Ver todos os cursos →</a></p>';return}
+  $('courseDetail').innerHTML='<p style="font-size:12px;color:var(--mut)"><a href="#cursos">Cursos</a> · '+esc(c.cat)+'</p><div class="cd"><img src="'+esc(c.img)+'" alt="'+esc(c.mentor)+'"><div><h2>'+esc(c.title)+'</h2><p class="mentor">'+esc(c.mentor)+' · '+esc(c.role)+'</p><p class="meta">'+c.lessons+' aulas · '+esc(c.hours)+' · '+esc(c.level)+' · Acesso para sempre</p><p class="desc">'+esc(c.desc)+'</p><p class="price">'+fmt(c.price)+' <small>· pagamento único</small></p><div class="acts"><button class="btn" onclick="enroll(\''+c.id+'\')">Inscrever-me</button><button class="btn ghost" onclick="openChat()">Perguntar no chat</button></div><div class="lessons"><h3>O que vais aprender</h3><ul>'+c.lessonList.map((l,i)=>'<li><b>'+String(i+1).padStart(2,'0')+'</b><span>'+esc(l)+'</span></li>').join('')+'</ul></div></div></div>';
+}
+function renderPricing(){
+  $('planCards').innerHTML=DEFAULT_PLANS.map(p=>{const st=settings();const pr=p.key==='mensal'?st.planMonthly:p.key==='trimestral'?st.planQuarterly:st.planYearly;const price=pr||p.price;return '<div class="plan'+(p.tag?' hot':'')+'">'+(p.tag?'<span class="tag">'+esc(p.tag)+'</span>':'')+'<h3>'+esc(p.name)+'</h3><p class="pr">'+fmt(price)+' <small>'+esc(p.per)+'</small></p><ul>'+p.feats.map(f=>'<li>'+esc(f)+'</li>').join('')+'</ul><button class="btn" onclick="subscribePlan(\''+p.key+'\')">Subscrever</button></div>'}).join('');
+}
+function renderBiz(){
+  $('bizPlans').innerHTML=BIZ_PLANS.map(p=>'<div class="plan"><h3>'+esc(p.name)+'</h3><p class="pr">'+(p.price?fmt(p.price):'Sob consulta')+' <small>'+esc(p.per)+'</small></p><ul>'+p.feats.map(f=>'<li>'+esc(f)+'</li>').join('')+'</ul><button class="btn" onclick="location.hash=\'#contacto\'">Falar connosco</button></div>').join('');
+}
+function renderSocials(){
+  const s=settings().socials||{};
+  $('socialLinks').innerHTML=[['Instagram',s.instagram],['Facebook',s.facebook],['TikTok',s.tiktok],['YouTube',s.youtube],['LinkedIn',s.linkedin]].map(x=>'<li><a class="soc" href="'+esc(x[1])+'" target="_blank" rel="noopener">'+x[0]+'</a></li>').join('');
+  const wa=$('waBtn');if(wa)wa.href='https://wa.me/'+settings().whatsapp;
+}
+
+/* ---------- inscrições / planos ---------- */
+function needLogin(){toast('Precisas de conta para continuar. Cria a tua conta — é grátis.');location.hash='#conta';return false}
+function enroll(cid){
+  const u=me();if(!u)return needLogin();
+  const c=courses().find(x=>x.id===cid);if(!c)return;
+  if(myEnrollments().find(e=>e.ref===cid&&e.status!=='cancelado')){toast('Já estás inscrito neste curso. Vê as tuas inscrições na tua conta.');location.hash='#conta';return}
+  const en={id:uid('SABER'),email:u.email,kind:'curso',ref:cid,title:c.title,total:c.price,status:'aguarda',date:todayStr()+' '+nowHM()};
+  const all=enrollments();all.push(en);save('enroll',all);
+  chatPush(u.email,{from:'shop',text:'Olá! A tua inscrição no curso “'+c.title+'” ('+fmt(c.price)+') ficou registada. Vamos enviar-te as instruções de pagamento por M-Pesa aqui no chat.',t:nowHM(),read:false});
+  toast('Inscrição criada: '+en.id+'. Fica como “aguarda pagamento” até confirmarmos o M-Pesa.');
+  location.hash='#conta';
+}
+function subscribePlan(key){
+  const u=me();if(!u)return needLogin();
+  const p=DEFAULT_PLANS.find(x=>x.key===key);if(!p)return;
+  const st=settings();const price=key==='mensal'?(st.planMonthly||p.price):key==='trimestral'?(st.planQuarterly||p.price):(st.planYearly||p.price);
+  if(myEnrollments().find(e=>e.ref==='plano-'+key&&e.status==='aguarda')){toast('Já tens uma subscrição '+p.name+' a aguardar pagamento.');location.hash='#conta';return}
+  const en={id:uid('SABER'),email:u.email,kind:'plano',ref:'plano-'+key,title:'Subscrição '+p.name,total:price,status:'aguarda',date:todayStr()+' '+nowHM()};
+  const all=enrollments();all.push(en);save('enroll',all);
+  chatPush(u.email,{from:'shop',text:'Olá! A tua subscrição '+p.name+' ('+fmt(price)+') ficou registada. Vamos enviar-te as instruções de pagamento por M-Pesa aqui no chat.',t:nowHM(),read:false});
+  toast('Subscrição criada: '+en.id+'. Fica como “aguarda pagamento” até confirmarmos o M-Pesa.');
+  location.hash='#conta';
+}
+
+/* ---------- formulários ---------- */
+function subscribeGrid(){
+  const em=($('gridEmail').value||'').trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){$('gridMsg').textContent='Escreve um email válido.';return}
+  const list=load('news',[]);if(!list.includes(em)){list.push(em);save('news',list)}
+  $('gridMsg').textContent='Obrigado! Vais receber as novidades.';$('gridMsg').classList.add('ok');$('gridEmail').value='';
+}
+function subscribeFoot(){
+  const em=($('ftEmail').value||'').trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){$('ftMsg').textContent='Escreve um email válido.';return}
+  const list=load('news',[]);if(!list.includes(em)){list.push(em);save('news',list)}
+  $('ftMsg').textContent='Obrigado! Vais receber as novidades.';$('ftMsg').classList.add('ok');$('ftEmail').value='';
+}
+function sendReco(){
+  const name=($('rcName').value||'').trim(),field=($('rcField').value||'').trim();
+  if(!name||!field){$('rcMsg').textContent='Escreve o nome e a área do mentor.';return}
+  const all=mentorApps();all.push({type:'recomendar',name,field,why:($('rcWhy').value||'').trim(),email:($('rcEmail').value||'').trim(),date:todayStr()});
+  save('mentors',all);$('rcMsg').textContent='Obrigado pela recomendação! Vamos ver o mentor.';$('rcMsg').classList.add('ok');
+  $('rcName').value='';$('rcField').value='';$('rcWhy').value='';$('rcEmail').value='';
+}
+function sendMentor(){
+  const name=($('mtName').value||'').trim(),field=($('mtField').value||'').trim(),email=($('mtEmail').value||'').trim();
+  if(!name||!field||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){$('mtMsg').textContent='Preenche o nome, a área e um email válido.';return}
+  const all=mentorApps();all.push({type:'mentor',name,field,exp:($('mtExp').value||'').trim(),email,date:todayStr()});
+  save('mentors',all);$('mtMsg').textContent='Candidatura enviada! Entramos em contacto contigo.';$('mtMsg').classList.add('ok');
+  $('mtName').value='';$('mtField').value='';$('mtExp').value='';$('mtEmail').value='';
+}
+function sendBiz(){
+  const name=($('bzName').value||'').trim(),email=($('bzEmail').value||'').trim();
+  if(!name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){$('bzMsgOut').textContent='Escreve o nome da empresa e um email válido.';return}
+  const all=contacts();all.push({type:'empresa',name,size:($('bzSize').value||'').trim(),email,msg:($('bzMsg').value||'').trim(),date:todayStr()});
+  save('contacts',all);$('bzMsgOut').textContent='Pedido enviado! Respondemos em breve.';$('bzMsgOut').classList.add('ok');
+  $('bzName').value='';$('bzSize').value='';$('bzEmail').value='';$('bzMsg').value='';
+}
+function sendContact(){
+  const name=($('ctName').value||'').trim(),email=($('ctEmail').value||'').trim(),text=($('ctText').value||'').trim();
+  if(!name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)||!text){$('ctMsg').textContent='Preenche o nome, um email válido e a mensagem.';return}
+  const all=contacts();all.push({type:'contacto',name,email,msg:text,date:todayStr()});
+  save('contacts',all);$('ctMsg').textContent='Mensagem enviada. Respondemos em breve.';$('ctMsg').classList.add('ok');
+  $('ctName').value='';$('ctEmail').value='';$('ctText').value='';
+}
+
+/* ---------- conta ---------- */
+function renderAccount(){
+  const u=me();const root=$('accountRoot');
+  if(!u){
+    const first=users().length===0;
+    root.innerHTML='<div class="form"><h1>'+(first?'Criar conta':'Entrar')+'</h1><p class="sub" style="margin-top:10px">'+(first?'A primeira conta criada fica com a gerência do site.':'Entra com o teu email e a tua palavra-passe.')+'</p>'
+    +(first?'<div class="field"><label>O teu nome</label><input id="acName" placeholder="Nome completo"></div>':'')
+    +'<div class="field"><label>Email</label><input id="acEmail" type="email" placeholder="nome@email.com"></div>'
+    +'<div class="field"><label>Palavra-passe</label><input id="acPass" type="password" placeholder="Mínimo 4 caracteres"></div>'
+    +'<button class="btn" style="margin-top:22px;width:100%" onclick="doAuth('+(first?1:0)+')">'+(first?'Criar conta':'Entrar')+'</button>'
+    +'<p class="msg" id="acMsg"></p>'
+    +(first?'':'<p class="note" style="text-align:center">Ainda não tens conta? <a href="#" onclick="return showSignup()" style="color:var(--orange);font-weight:600">Criar conta</a></p>')
+    +'</div>';
+    root._signup=false;
+    return;
+  }
+  const ens=myEnrollments();
+  root.innerHTML='<h1>Olá, '+esc(u.name)+'.</h1><p class="sub">A tua conta na SABER.</p>'
+  +(isAdmin()?'<p style="margin-top:16px"><a class="btn sm" href="#admin">Ir para a gerência</a></p>':'')
+  +'<h2 class="serif" style="font-size:24px;margin-top:40px">As tuas inscrições</h2>'
+  +(ens.length?ens.map(e=>'<div class="ord"><div class="top"><span><b>'+esc(e.id)+'</b> · '+esc(e.date)+'</span><span class="pill '+(e.status==='pago'?'paid':'wait')+'">'+(e.status==='pago'?'Pago':'Aguarda pagamento')+'</span></div><p style="margin-top:8px;font-size:14px">'+esc(e.title)+' — <b>'+fmt(e.total)+'</b></p>'+(e.status==='pago'?'<p style="margin-top:6px;font-size:13px;color:#7dd87d">Pagamento confirmado. Bem-vindo à SABER!</p>':'<p style="margin-top:6px;font-size:13px;color:var(--mut)">Vamos enviar-te as instruções de pagamento por M-Pesa no chat.</p>')+'</div>').join(''):'<p style="color:var(--mut);margin-top:12px">Ainda não tens inscrições. <a href="#cursos" style="color:var(--orange)">Ver os cursos →</a></p>')
+  +'<div class="rowline" style="margin-top:28px"><button class="btn ghost" onclick="openChat()">Abrir o chat</button><button class="mini" onclick="doLogout()">Sair da conta</button></div>';
+}
+function showSignup(){
+  const root=$('accountRoot');
+  root.innerHTML='<div class="form"><h1>Criar conta</h1><p class="sub" style="margin-top:10px">Cria a tua conta para te inscreveres nos cursos.</p><div class="field"><label>O teu nome</label><input id="acName" placeholder="Nome completo"></div><div class="field"><label>Email</label><input id="acEmail" type="email" placeholder="nome@email.com"></div><div class="field"><label>Palavra-passe</label><input id="acPass" type="password" placeholder="Mínimo 4 caracteres"></div><button class="btn" style="margin-top:22px;width:100%" onclick="doAuth(1)">Criar conta</button><p class="msg" id="acMsg"></p></div>';
+  return false;
+}
+async function doAuth(signup){
+  const email=($('acEmail').value||'').trim().toLowerCase();
+  const pass=$('acPass').value||'';
+  const msg=$('acMsg');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){msg.textContent='Escreve um email válido.';return}
+  if(pass.length<4){msg.textContent='A palavra-passe tem de ter pelo menos 4 caracteres.';return}
+  const us=users();const h=await sha256(pass);
+  if(signup){
+    const name=($('acName')?$('acName').value:'').trim();
+    if(!name){msg.textContent='Escreve o teu nome.';return}
+    if(us.find(x=>x.email===email)){msg.textContent='Já existe uma conta com este email. Entra com a palavra-passe.';return}
+    us.push({name,email,pass:h,created:todayStr()});save('users',us);save('session',email);
+    toast(us.length===1?'Conta criada. Ficaste com a gerência do site.':'Conta criada. Bem-vindo à SABER!');
+    renderAccount();updateAccBtn();
+  }else{
+    const u=us.find(x=>x.email===email);
+    if(!u||u.pass!==h){msg.textContent='Email ou palavra-passe errados.';return}
+    save('session',email);toast('Olá, '+u.name.split(' ')[0]+'!');renderAccount();updateAccBtn();
+  }
+}
+function doLogout(){save('session',null);chatTarget=null;renderAccount();updateAccBtn();toast('Saíste da conta.')}
+
+/* ---------- admin ---------- */
+function renderAdmin(){
+  const root=$('adminRoot');
+  if(!me()){root.innerHTML='<h1>Gerência</h1><p class="sub">Precisas de conta para entrar na gerência.</p><p style="margin-top:20px"><a class="btn" href="#conta">Entrar / Criar conta</a></p>';return}
+  if(!isAdmin()){root.innerHTML='<h1>Gerência</h1><p class="sub">Sem acesso. Só a primeira conta do site entra na gerência.</p>';return}
+  const ens=enrollments(),us=users(),apps=mentorApps(),cts=contacts();
+  const paid=ens.filter(e=>e.status==='pago');
+  let html='<h1>Gerência</h1><p class="sub">Painel da SABER. Edita cursos, inscrições, mentores e definições.</p>';
+  html+='<div class="kpis"><div class="kpi"><b>'+ens.length+'</b><span>inscrições</span></div><div class="kpi"><b>'+fmt(paid.reduce((a,e)=>a+e.total,0))+'</b><span>vendas pagas</span></div><div class="kpi"><b>'+us.length+'</b><span>alunos</span></div><div class="kpi"><b>'+apps.length+'</b><span>candidaturas</span></div></div>';
+  html+='<div class="tabs">'+['resumo','cursos','inscricoes','mentores','conversas','definicoes'].map(t=>'<button class="'+(admTab===t?'on':'')+'" onclick="admTab=\''+t+'\';renderAdmin()">'+({resumo:'Resumo',cursos:'Cursos',inscricoes:'Inscrições',mentores:'Mentores',conversas:'Conversas',definicoes:'Definições'})[t]+'</button>').join('')+'</div>';
+  if(admTab==='resumo'){
+    html+='<div class="cardbox"><h3>Inscrições recentes</h3>'+(ens.length?ens.slice(-5).reverse().map(e=>'<p>'+esc(e.id)+' · '+esc(e.title)+' · '+fmt(e.total)+' · '+(e.status==='pago'?'Pago':'Aguarda pagamento')+'</p>').join(''):'<p>Ainda não há inscrições.</p>')+'</div>';
+    html+='<div class="cardbox"><h3>Newsletter</h3><p>'+load('news',[]).length+' subscritores.</p></div>';
+  }
+  if(admTab==='cursos'){
+    html+=courses().map(c=>'<div class="cardbox"><h3>'+esc(c.title)+'</h3><div class="field"><label>Nome do mentor</label><input id="ed-mentor-'+c.id+'" value="'+esc(c.mentor)+'"></div><div class="field"><label>Título do curso</label><input id="ed-title-'+c.id+'" value="'+esc(c.title)+'"></div><div class="field"><label>Preço (MT)</label><input id="ed-price-'+c.id+'" type="number" value="'+c.price+'"></div><div class="field"><label>Descrição</label><textarea id="ed-desc-'+c.id+'">'+esc(c.desc)+'</textarea></div><div class="field"><label>Aulas (uma por linha)</label><textarea id="ed-lessons-'+c.id+'">'+esc(c.lessonList.join('\n'))+'</textarea></div><div class="field"><label>Foto do mentor (por ficheiro, máx. 3 MB)</label><input type="file" accept="image/*" onchange="coursePhoto(\''+c.id+'\',this)"></div><div class="rowline"><button class="mini" onclick="saveCourse(\''+c.id+'\')">Guardar curso</button><button class="mini danger" onclick="delCourse(\''+c.id+'\')">Apagar curso</button></div></div>').join('');
+    html+='<button class="btn" onclick="newCourse()">+ Novo curso</button>';
+  }
+  if(admTab==='inscricoes'){
+    html+=ens.length?ens.slice().reverse().map(e=>'<div class="cardbox"><div class="top" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span><b>'+esc(e.id)+'</b> · '+esc(e.date)+'</span><span class="pill '+(e.status==='pago'?'paid':'wait')+'">'+(e.status==='pago'?'Pago':'Aguarda pagamento')+'</span></div><p>'+esc(e.title)+' — <b>'+fmt(e.total)+'</b></p><p>'+esc(e.email)+'</p><div class="rowline">'+(e.status==='pago'?'<button class="mini" onclick="markPaid(\''+e.id+'\',false)">Voltar a aguardar</button>':'<button class="mini" onclick="markPaid(\''+e.id+'\',true)">Marcar pago</button>')+'<button class="mini" onclick="openChatFor(\''+esc(e.email)+'\')">Abrir chat</button></div></div>').join(''):'<p style="color:var(--mut)">Ainda não há inscrições.</p>';
+  }
+  if(admTab==='mentores'){
+    html+=apps.length?apps.map((a,i)=>'<div class="cardbox"><h3>'+esc(a.name)+' · '+esc(a.field)+'</h3><p>'+(a.type==='mentor'?'Candidatura a mentor':'Recomendação')+' · '+esc(a.date)+'</p>'+(a.exp?'<p>'+esc(a.exp)+'</p>':'')+(a.why?'<p>'+esc(a.why)+'</p>':'')+(a.email?'<p>'+esc(a.email)+'</p>':'')+'<div class="rowline"><button class="mini danger" onclick="delApp('+i+')">Apagar</button></div></div>').join(''):'<p style="color:var(--mut)">Ainda não há candidaturas nem recomendações.</p>';
+  }
+  if(admTab==='conversas'){
+    const ch=chatStore();const keys=Object.keys(ch);
+    html+=keys.length?keys.map(k=>'<div class="cardbox"><h3>'+esc(k)+'</h3><p>'+(ch[k].length?esc((ch[k][ch[k].length-1].text||'').slice(0,120)):'—')+'</p><div class="rowline"><button class="mini" onclick="openChatFor(\''+esc(k)+'\')">Abrir conversa</button></div></div>').join(''):'<p style="color:var(--mut)">Ainda não há conversas.</p>';
+    html+='<h2 class="serif" style="font-size:22px;margin:28px 0 12px">Mensagens de contacto</h2>';
+    html+=cts.length?cts.map((c,i)=>'<div class="cardbox"><h3>'+esc(c.name)+' · '+esc(c.type)+'</h3><p>'+esc(c.msg||'')+'</p><p>'+esc(c.email||'')+' · '+esc(c.date||'')+'</p><div class="rowline"><button class="mini danger" onclick="delContact('+i+')">Apagar</button></div></div>').join(''):'<p style="color:var(--mut)">Ainda não há mensagens.</p>';
+  }
+  if(admTab==='definicoes'){
+    const st=settings();
+    html+='<div class="cardbox"><h3>Contactos</h3><div class="field"><label>WhatsApp (só números, ex.: 258840000000)</label><input id="stWa" value="'+esc(st.whatsapp)+'"></div><div class="field"><label>Email</label><input id="stEm" value="'+esc(st.email)+'"></div></div>';
+    html+='<div class="cardbox"><h3>Planos de subscrição (MT)</h3><div class="field"><label>Mensal</label><input id="stPm" type="number" value="'+(st.planMonthly||1500)+'"></div><div class="field"><label>Trimestral</label><input id="stPq" type="number" value="'+(st.planQuarterly||3900)+'"></div><div class="field"><label>Anual</label><input id="stPy" type="number" value="'+(st.planYearly||12000)+'"></div></div>';
+    html+='<div class="cardbox"><h3>Redes sociais (links)</h3>'+['instagram','facebook','tiktok','youtube','linkedin'].map(k=>'<div class="field"><label>'+k+'</label><input id="stSoc-'+k+'" value="'+esc((st.socials||{})[k]||'')+'"></div>').join('')+'</div>';
+    html+='<button class="btn" onclick="saveSettingsForm()">Guardar definições</button>';
+  }
+  root.innerHTML=html;
+}
+function saveCourse(id){
+  const cs=courses();const c=cs.find(x=>x.id===id);if(!c)return;
+  c.mentor=$('ed-mentor-'+id).value.trim()||c.mentor;
+  c.title=$('ed-title-'+id).value.trim()||c.title;
+  c.price=parseInt($('ed-price-'+id).value,10)||c.price;
+  c.desc=$('ed-desc-'+id).value.trim();
+  c.lessonList=$('ed-lessons-'+id).value.split('\n').map(s=>s.trim()).filter(Boolean);
+  saveCourses(cs);toast('Curso guardado.');renderAdmin();renderHome();
+}
+function coursePhoto(id,input){
+  const f=input.files&&input.files[0];if(!f)return;
+  if(f.size>3*1024*1024){toast('A foto tem de ter no máximo 3 MB.');input.value='';return}
+  const r=new FileReader();
+  r.onload=()=>{const cs=courses();const c=cs.find(x=>x.id===id);if(!c)return;c.img=r.result;saveCourses(cs);toast('Foto do curso actualizada. Guarda o curso para confirmar.');renderAdmin()};
+  r.onerror=()=>toast('Não consegui ler a foto. Tenta outra vez.');
+  r.readAsDataURL(f);
+}
+function newCourse(){
+  const cs=courses();
+  cs.push({id:uid('c'),title:'Novo curso',mentor:'Nome do mentor',role:'Mentor',cat:'Negócios',price:1000,lessons:4,hours:'2 h',level:'Iniciante',img:cs[0]?cs[0].img:'',desc:'Descrição do curso.',lessonList:['Primeira aula','Segunda aula']});
+  saveCourses(cs);toast('Curso criado. Edita os dados e guarda.');renderAdmin();
+}
+function delCourse(id){
+  if(!confirm('Apagar este curso?'))return;
+  let cs=courses();if(cs.length<=1){toast('Tem de ficar pelo menos um curso.');return}
+  cs=cs.filter(x=>x.id!==id);saveCourses(cs);toast('Curso apagado.');renderAdmin();renderHome();
+}
+function markPaid(id,paid){
+  const all=enrollments();const e=all.find(x=>x.id===id);if(!e)return;
+  e.status=paid?'pago':'aguarda';save('enroll',all);
+  if(paid)chatPush(e.email,{from:'shop',text:'Pagamento confirmado! A tua inscrição em “'+e.title+'” ('+fmt(e.total)+') está activa. Bem-vindo à SABER!',t:nowHM(),read:false});
+  toast(paid?'Pagamento confirmado e recibo enviado no chat.':'Inscrição voltou a “aguarda pagamento”.');
+  renderAdmin();
+}
+function delApp(i){if(!confirm('Apagar esta candidatura?'))return;const a=mentorApps();a.splice(i,1);save('mentors',a);renderAdmin()}
+function delContact(i){if(!confirm('Apagar esta mensagem?'))return;const c=contacts();c.splice(i,1);save('contacts',c);renderAdmin()}
+function saveSettingsForm(){
+  const st=settings();
+  st.whatsapp=($('stWa').value||'').replace(/\D/g,'')||st.whatsapp;
+  st.email=($('stEm').value||'').trim()||st.email;
+  st.planMonthly=parseInt($('stPm').value,10)||1500;
+  st.planQuarterly=parseInt($('stPq').value,10)||3900;
+  st.planYearly=parseInt($('stPy').value,10)||12000;
+  st.socials={};['instagram','facebook','tiktok','youtube','linkedin'].forEach(k=>{st.socials[k]=($('stSoc-'+k).value||'').trim()||DEFAULT_SETTINGS.socials[k]});
+  saveSettings(st);renderSocials();toast('Definições guardadas.');
+}
+
+/* ---------- chat ---------- */
+function chatEmail(){return isAdmin()&&chatTarget?chatTarget:(me()?me().email:null)}
+function openChat(){
+  if(!me()){needLogin();return}
+  chatTarget=null;
+  $('chatBox').classList.add('on');renderChat();
+}
+function openChatFor(email){chatTarget=email;$('chatBox').classList.add('on');renderChat()}
+function closeChat(){$('chatBox').classList.remove('on');chatTarget=null}
+function renderChat(){
+  const em=chatEmail();const body=$('chatBody');
+  $('chatSub').textContent=em?('Chat · '+em):'Chat';
+  if(!em){body.innerHTML='<p style="color:var(--mut)">Entra com a tua conta para falar connosco.</p>';return}
+  const c=chatStore();const msgs=c[em]||[];
+  // marcar como lidas as mensagens do outro lado
+  let changed=false;
+  msgs.forEach(m=>{if(isAdmin()&&chatTarget){if(m.from==='me'&&!m.read){m.read=true;changed=true}}else{if(m.from==='shop'&&!m.read){m.read=true;changed=true}}});
+  if(changed)save('chat',c);
+  body.innerHTML=msgs.length?msgs.map(m=>'<div class="bubble '+(m.from==='me'?'me':'shop')+'">'+(m.img?'<img src="'+m.img+'" alt="anexo">':'')+(m.text?esc(m.text):'')+'<span class="tm">'+esc(m.t||'')+(m.from==='me'?(m.read?' ✓✓':' ✓'):'')+'</span></div>').join(''):'<p style="color:var(--mut)">Olá! Escreve a tua pergunta — respondemos aqui.</p>';
+  body.scrollTop=body.scrollHeight;
+}
+function sendChat(){
+  const em=chatEmail();if(!em){needLogin();return}
+  const inp=$('chatInput');const text=inp.value.trim();if(!text)return;
+  chatPush(em,{from:isAdmin()&&chatTarget?'shop':'me',text,t:nowHM(),read:false});
+  inp.value='';renderChat();
+}
+function chatAttach(input){
+  const em=chatEmail();if(!em)return;
+  const f=input.files&&input.files[0];if(!f)return;
+  if(f.size>5*1024*1024){toast('O ficheiro tem de ter no máximo 5 MB.');input.value='';return}
+  const r=new FileReader();
+  r.onload=()=>{
+    if(f.type.startsWith('image/'))chatPush(em,{from:isAdmin()&&chatTarget?'shop':'me',img:r.result,text:'',t:nowHM(),read:false});
+    else chatPush(em,{from:isAdmin()&&chatTarget?'shop':'me',text:'Áudio enviado ('+f.name+')',t:nowHM(),read:false});
+    renderChat();
+  };
+  r.onerror=()=>toast('Não consegui ler o ficheiro.');
+  r.readAsDataURL(f);input.value='';
+}
+
+/* ---------- arranque ---------- */
+renderHome();renderSocials();route();
+</script>
+</body>
+</html>
