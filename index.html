@@ -30,8 +30,8 @@ header .wrap{height:70px;display:flex;align-items:center;justify-content:space-b
 nav.desk{display:flex;align-items:center;gap:30px}
 nav.desk a{font-size:14px;font-weight:600;color:var(--white)}
 nav.desk a:hover{color:var(--orange)}
-.btn{display:inline-block;background:var(--orange);color:#fff;font-weight:700;font-size:15px;line-height:1;padding:14px 28px;border:0;border-radius:6px;text-align:center}
-.btn:hover{background:var(--orange-d)}
+.btn{display:inline-block;background:linear-gradient(135deg,#ff8a00 0%,#e66606 55%,#3d1e06 100%);color:#fff;font-weight:700;font-size:15px;line-height:1;padding:14px 28px;border:0;border-radius:6px;text-align:center}
+.btn:hover{filter:brightness(1.12)}
 .btn.sm{padding:10px 20px;font-size:14px}
 .btn.ghost{background:transparent;color:#fff;border:1px solid #fff}
 .btn.ghost:hover{border-color:var(--orange);color:var(--orange)}
@@ -50,7 +50,8 @@ nav.desk a:hover{color:var(--orange)}
 .xbtn{background:none;border:0;color:#fff;font-size:30px;line-height:1;padding:6px}
 /* ---------- hero ---------- */
 .hero{margin-top:70px}
-.hero-band{height:420px;overflow:hidden}
+.hero-band{height:420px;overflow:hidden;position:relative}
+.hero-band .shade{position:absolute;inset:0;background:linear-gradient(135deg,rgba(230,102,6,.30),rgba(9,9,10,0) 45%,rgba(9,9,10,.88));pointer-events:none}
 .hero-band img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
 @media(max-width:768px){.hero-band{height:250px}}
 .hero-txt{text-align:center;padding:64px 20px 84px}
@@ -214,7 +215,7 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
 .ord{border-bottom:1px solid #2a2a2a;padding:16px 0}
 .ord .top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
 /* ---------- chat ---------- */
-.chatfab{position:fixed;left:20px;bottom:20px;z-index:55;width:56px;height:56px;border-radius:50%;background:var(--orange);border:0;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+.chatfab{position:fixed;left:20px;bottom:20px;z-index:55;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#ff8a00,#e66606 60%,#3d1e06);border:0;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 .chatfab svg{width:26px;height:26px;fill:#fff}
 .chat{position:fixed;inset:0;z-index:70;background:var(--black);display:none;flex-direction:column}
 .chat.on{display:flex}
@@ -240,12 +241,12 @@ footer{border-top:1px solid #1c1c1c;padding:72px 0 32px}
 @keyframes marquee{to{transform:translateX(-50%)}}
 @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
 @keyframes floatGlow{from{transform:translate(-40px,0) scale(1)}to{transform:translate(40px,24px) scale(1.15)}}
-.hero-txt{position:relative;overflow:hidden}
+.hero-txt{position:relative;overflow:hidden;background:linear-gradient(180deg,#09090a 0%,#2a1408 52%,#09090a 100%)}
 .hero-txt::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(230,102,6,.32),transparent 65%);top:-240px;left:50%;margin-left:-320px;filter:blur(8px);animation:floatGlow 9s ease-in-out infinite alternate;pointer-events:none}
 .hero-txt::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,196,107,.16),transparent 65%);bottom:-260px;right:-80px;filter:blur(8px);animation:floatGlow 12s ease-in-out infinite alternate-reverse;pointer-events:none}
 .hero-txt h1,.hero-txt p,.hero-btns,.stats{position:relative;z-index:1}
 .hero-txt h1 .w{display:inline-block;animation:wordIn .8s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*90ms)}
-.grad-text{background:linear-gradient(90deg,#ff8a00,#e66606,#ffc46b,#ff8a00);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradientShift 5s ease infinite}
+.grad-text{background:linear-gradient(90deg,#ffc46b,#ff8a00 35%,#e66606 65%,#8a3a06 100%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradientShift 5s ease infinite}
 .cursor{display:inline-block;width:2px;height:1.1em;background:var(--orange);animation:blink 1s steps(1) infinite;vertical-align:-.15em;margin-left:2px}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
@@ -297,7 +298,7 @@ header.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.55)}
 <!-- ============ INÍCIO ============ -->
 <div class="view on" id="view-inicio">
   <section class="hero">
-    <div class="hero-band"><video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="https://images.pexels.com/photos/19411793/pexels-photo-19411793.jpeg?auto=compress&cs=tinysrgb&w=1200"><source src="https://videos.pexels.com/video-files/9365160/9365160-hd_1920_1080_25fps.mp4" type="video/mp4"></video></div>
+    <div class="hero-band"><img src="https://images.pexels.com/photos/19411793/pexels-photo-19411793.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mentores da SABER em frente a um edifício"><span class="shade"></span></div>
     <div class="hero-txt wrap">
       <h1>Aprende com os melhores de Moçambique</h1>
       <p><span id="typer">Descobre o teu potencial por descobrir</span><span class="cursor"></span></p>
@@ -492,6 +493,83 @@ header.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.55)}
   </div>
 </div>
 
+<!-- ============ SOBRE ============ -->
+<div class="view" id="view-sobre">
+  <div class="wrap page">
+    <h1>Sobre a SABER.</h1>
+    <p class="sub">A SABER nasceu para aproximar quem sabe de quem quer aprender.</p>
+    <div style="max-width:640px;margin-top:28px;display:grid;gap:16px;color:#ddd">
+      <p>Acreditamos que se aprende melhor com quem faz todos os dias aquilo que ensina. Por isso cada curso da SABER é dado por um mentor que vive da sua área — e não por quem só leu sobre ela.</p>
+      <p>Os cursos são em vídeo, em português, e vês quando quiseres, do computador ou do telemóvel. Sem pressas, sem datas fixas, ao teu ritmo.</p>
+      <p>Para as empresas, preparamos formação para equipas. Para os mentores, abrimos a porta a quem quer ensinar o que sabe.</p>
+    </div>
+    <h2 class="serif" style="font-size:26px;margin-top:44px">O que nos guia</h2>
+    <ul class="benefits dark" style="margin-top:20px;max-width:640px">
+      <li><span class="check">✓</span><span>Ensinar o que se faz, não só o que se sabe.</span></li>
+      <li><span class="check">✓</span><span>Cursos curtos, directos e em português.</span></li>
+      <li><span class="check">✓</span><span>Preços claros, em meticais, sem surpresas.</span></li>
+    </ul>
+    <div class="rowline" style="margin-top:32px"><a class="btn" href="#cursos">Ver os cursos</a><a class="btn ghost" href="#contacto">Falar connosco</a></div>
+  </div>
+</div>
+
+<!-- ============ BLOGUE ============ -->
+<div class="view" id="view-blogue">
+  <div class="wrap page">
+    <h1>Blogue.</h1>
+    <p class="sub">Ideias curtas sobre aprender, ensinar e crescer.</p>
+    <div style="margin-top:36px;display:grid;gap:20px;max-width:720px">
+      <article class="cardbox"><h3>Como escolher o teu primeiro curso</h3><p style="color:var(--mut)">9 de Novembro de 2026</p><p>Começa pelo problema que queres resolver, não pelo curso mais bonito. Se queres vender mais, começa por marketing. Se queres organizar a tua equipa, começa por liderança. Um curso de cada vez, até ao fim, vale mais do que três começados.</p></article>
+      <article class="cardbox"><h3>Aprender ao teu ritmo, sem pressas</h3><p style="color:var(--mut)">2 de Novembro de 2026</p><p>Não há datas fixas na SABER por uma razão: a vida não para para tu aprenderes. Vê uma aula por dia, para e continua onde ficaste. O progresso pequeno e constante é o que fica.</p></article>
+      <article class="cardbox"><h3>O que faz um bom mentor</h3><p style="color:var(--mut)">26 de Outubro de 2026</p><p>Um bom mentor não é quem sabe mais — é quem consegue explicar o que faz, mostrar como faz e corrigir-te quando erras. É por isso que os mentores da SABER são pessoas que vivem da sua área todos os dias.</p></article>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TERMOS ============ -->
+<div class="view" id="view-termos">
+  <div class="wrap page">
+    <h1>Termos de uso.</h1>
+    <p class="sub">As regras simples da SABER.</p>
+    <div style="max-width:680px;margin-top:28px;display:grid;gap:18px;color:#ddd">
+      <p><b style="color:#fff">1. Inscrições.</b> Para te inscreveres num curso ou numa subscrição precisas de uma conta. A inscrição fica como “aguarda pagamento” até confirmarmos o pagamento por M-Pesa.</p>
+      <p><b style="color:#fff">2. Pagamento.</b> O pagamento é feito por M-Pesa, depois da inscrição. Os preços estão em meticais e são os que vês na página do curso ou do plano.</p>
+      <p><b style="color:#fff">3. Acesso aos cursos.</b> Um curso comprado fica com acesso para sempre. Uma subscrição dá acesso a todos os cursos enquanto estiver activa.</p>
+      <p><b style="color:#fff">4. Cancelamento.</b> A subscrição mensal cancela-se quando quiseres, sem fidelização. O acesso continua até ao fim do período pago.</p>
+      <p><b style="color:#fff">5. Certificados.</b> Cada curso concluído tem certificado.</p>
+      <p><b style="color:#fff">6. Conta.</b> A tua conta é pessoal. Guarda bem a tua palavra-passe e fala connosco no chat se tiveres algum problema.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PRIVACIDADE ============ -->
+<div class="view" id="view-privacidade">
+  <div class="wrap page">
+    <h1>Privacidade.</h1>
+    <p class="sub">O que fazemos com os teus dados.</p>
+    <div style="max-width:680px;margin-top:28px;display:grid;gap:18px;color:#ddd">
+      <p><b style="color:#fff">1. O que recolhemos.</b> O teu nome, email e as tuas inscrições — só o que precisas para usar a SABER.</p>
+      <p><b style="color:#fff">2. Para que serve.</b> Para gerir a tua conta, as tuas inscrições e falar contigo no chat.</p>
+      <p><b style="color:#fff">3. Partilha.</b> Não vendemos nem partilhamos os teus dados com ninguém.</p>
+      <p><b style="color:#fff">4. Segurança.</b> A tua palavra-passe fica guardada de forma protegida e nunca a pedimos por mensagem.</p>
+      <p><b style="color:#fff">5. Dúvidas.</b> Se quiseres ver ou apagar os teus dados, fala connosco no chat ou por email.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAPA ============ -->
+<div class="view" id="view-mapa">
+  <div class="wrap page">
+    <h1>Mapa do site.</h1>
+    <p class="sub">Todas as páginas da SABER num só lugar.</p>
+    <div class="fgrid" style="margin-top:36px;max-width:900px">
+      <div><h4>Páginas</h4><ul><li><a href="#inicio" style="color:var(--orange)">Início</a></li><li><a href="#cursos" style="color:var(--orange)">Cursos</a></li><li><a href="#precos" style="color:var(--orange)">Preços</a></li><li><a href="#empresas" style="color:var(--orange)">Para empresas</a></li><li><a href="#contacto" style="color:var(--orange)">Contacto</a></li><li><a href="#sobre" style="color:var(--orange)">Sobre nós</a></li><li><a href="#blogue" style="color:var(--orange)">Blogue</a></li></ul></div>
+      <div><h4>Conta</h4><ul><li><a href="#conta" style="color:var(--orange)">A minha conta</a></li><li><a href="#admin" style="color:var(--orange)">Gerência</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#termos" style="color:var(--orange)">Termos de uso</a></li><li><a href="#privacidade" style="color:var(--orange)">Privacidade</a></li></ul></div>
+    </div>
+  </div>
+</div>
+
 <!-- ============ CONTA ============ -->
 <div class="view" id="view-conta">
   <div class="wrap page"><div id="accountRoot"></div></div>
@@ -508,14 +586,14 @@ header.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.55)}
     <div class="fgrid">
       <div>
         <h4>Explorar</h4>
-        <ul><li><a href="#cursos">Cursos</a></li><li><a href="#inicio">Mapa do site</a></li></ul>
+        <ul><li><a href="#cursos">Cursos</a></li><li><a href="#mapa">Mapa do site</a></li></ul>
       </div>
       <div>
         <h4>Sobre a SABER</h4>
         <ul>
-          <li><a href="#contacto">Sobre nós</a></li><li><a href="#contacto">Contacto</a></li>
-          <li><a href="#cursos">Blogue</a></li><li><a href="#contacto">Termos de uso</a></li>
-          <li><a href="#contacto">Privacidade</a></li><li><a href="#inicio" onclick="return goMentor()">Tornar-me mentor</a></li>
+          <li><a href="#sobre">Sobre nós</a></li><li><a href="#contacto">Contacto</a></li>
+          <li><a href="#blogue">Blogue</a></li><li><a href="#termos">Termos de uso</a></li>
+          <li><a href="#privacidade">Privacidade</a></li><li><a href="#inicio" onclick="return goMentor()">Tornar-me mentor</a></li>
           <li><a href="#empresas">SABER para empresas</a></li><li><a href="#inicio" onclick="return goFaq()">FAQ</a></li>
         </ul>
       </div>
@@ -621,6 +699,11 @@ function route(){
   else if(page==='precos'){show('view-precos');renderPricing()}
   else if(page==='empresas'){show('view-empresas');renderBiz()}
   else if(page==='contacto'){show('view-contacto')}
+  else if(page==='sobre'){show('view-sobre')}
+  else if(page==='blogue'){show('view-blogue')}
+  else if(page==='termos'){show('view-termos')}
+  else if(page==='privacidade'){show('view-privacidade')}
+  else if(page==='mapa'){show('view-mapa')}
   else if(page==='conta'){show('view-conta');renderAccount()}
   else if(page==='admin'){show('view-admin');renderAdmin()}
   else{show('view-inicio');renderHome()}
@@ -971,7 +1054,6 @@ function videoFallback(video,imgUrl){
   video.addEventListener('error',fail);
 }
 observeReveals();
-videoFallback(document.getElementById('heroVideo'),'https://images.pexels.com/photos/19411793/pexels-photo-19411793.jpeg?auto=compress&cs=tinysrgb&w=1200');
 videoFallback(document.getElementById('whyVideo'),'https://images.pexels.com/photos/8412395/pexels-photo-8412395.jpeg?auto=compress&cs=tinysrgb&w=1200');
 videoFallback(document.getElementById('bandVideo'),'https://images.pexels.com/photos/1181360/pexels-photo-1181360.jpeg?auto=compress&cs=tinysrgb&w=1200');
 </script>
